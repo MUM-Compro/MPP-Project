@@ -1,5 +1,8 @@
 package edu.mum.food.controller;
 
-public class LoginController {
+import edu.mum.food.model.*;
+import edu.mum.food.view.*;
 
+public class LoginController {
+	
 }
