@@ -1,7 +1,5 @@
 package edu.mum.foods;
 
-import edu.mum.*;
-
 import java.io.File;
 
 import com.aquafx_project.AquaFx;
@@ -22,11 +20,6 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 public class Login extends Application {
-	
-	Register r= new Register();
-
-	static String pass = "im password";
-	static String uname = "im username";
 
 	public static void main(String[] arg) {
 		launch(arg);
@@ -83,26 +76,10 @@ public class Login extends Application {
 		btnSubmit.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				pass = txtPassword.getText();
-				uname = txtPassword.getText();
-				try {
-					r.start(primaryStage);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 
 			}
 		});
 
-	}
-
-	public static String getUname() {
-		return uname;
-	}
-
-	public static String getPassword() {
-		return pass;
 	}
 
 }
