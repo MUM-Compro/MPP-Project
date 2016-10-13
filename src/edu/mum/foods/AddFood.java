@@ -1,10 +1,9 @@
-package edu.mum.food.view;
+package edu.mum.foods;
 
 import java.sql.SQLException;
 
 import com.aquafx_project.AquaFx;
 
-import edu.mum.food.model.RegisterModel;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

@@ -1,9 +1,9 @@
-package edu.mum.food.model;
+package edu.mum.foods;
 
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class RegisterModel {
+public class RegisterUser {
 	
 	public static void getRegister(String firstname, String lastname, String email,
 			String password, String gender, String address, String contact_name,

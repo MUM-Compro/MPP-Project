@@ -1,6 +1,6 @@
-package edu.mum.food.view;
+package edu.mum.foods;
 
-import edu.mum.food.controller.*;
+import edu.mum.*;
 
 import java.io.File;
 

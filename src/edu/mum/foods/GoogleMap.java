@@ -1,4 +1,4 @@
-package edu.mum.food.view;
+package edu.mum.foods;
 
 import javafx.application.Application;
 import javafx.geometry.HPos;

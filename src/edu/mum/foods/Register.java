@@ -1,18 +1,18 @@
-package edu.mum.food.view;
+package edu.mum.foods;
 
 import java.sql.SQLException;
 
 import com.aquafx_project.AquaFx;
 
-import edu.mum.food.model.*;
-
-import edu.mum.food.model.RegisterModel;
+import edu.mum.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -73,15 +73,15 @@ public class Register extends Application {
 		topGrid.add(txtEmail, 0, 7);
 
 		Label lblPassword = new Label("Password");
-		PasswordField txtPassword = new PasswordField();
+		TextField txtPassword = new TextField();
 		txtPassword.setPrefWidth(300);
 		topGrid.add(lblPassword, 0, 8);
 		topGrid.add(txtPassword, 0, 9);
 
 		Label lblGender = new Label("Gender");
 		ComboBox<String> cboGender = new ComboBox<String>();
-		cboGender.getItems().addAll("Male", "Female");
-		cboGender.setValue("Male");
+		cboGender.getItems().addAll("-Select-", "Male", "Female");
+		cboGender.setValue("-Select-");
 		cboGender.setPrefWidth(180);
 
 		topGrid.add(lblGender, 0, 10);
@@ -137,15 +137,25 @@ public class Register extends Application {
 			public void handle(ActionEvent event) {
 
 				try {
-					RegisterModel.getRegister(txtFirstname.getText(), txtLastname.getText(), txtEmail.getText(),
+					RegisterUser.getRegister(txtFirstname.getText(), txtLastname.getText(), txtEmail.getText(),
 							txtPassword.getText(), cboGender.getValue(), txtAddress.getText(),
 							txtContactNumber.getText(), "1", 1);
 					System.out.println("Inserted");
+					
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Information Dialog");
+					alert.setHeaderText("Successful!");
+					alert.setContentText("You have successful register account with our system!");
+
+					alert.showAndWait();
+					
 				} catch (ClassNotFoundException | SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 					System.out.println("Failed");
 				}
+				
+				
 
 			}
 		});
@@ -155,6 +165,12 @@ public class Register extends Application {
 			public void handle(ActionEvent event) {
 				
 				txtFirstname.setText("");
+				txtLastname.setText("");
+				txtEmail.setText("");
+				txtPassword.setText("");
+				txtContactNumber.setText("");
+				txtAddress.setText("");
+				cboGender.setValue("-Select-");
 
 			}
 		});

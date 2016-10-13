@@ -1,4 +1,4 @@
-package edu.mum.food.view;
+package edu.mum.foods;
 
 import java.io.File;
 

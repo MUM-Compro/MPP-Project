@@ -1,4 +1,4 @@
-package edu.mum.food.model;
+package edu.mum.foods;
 
 import java.sql.*;
 
