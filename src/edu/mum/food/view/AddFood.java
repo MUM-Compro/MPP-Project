@@ -4,8 +4,6 @@ import java.sql.SQLException;
 
 import com.aquafx_project.AquaFx;
 
-import edu.mum.food.model.*;
-
 import edu.mum.food.model.RegisterModel;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -21,8 +19,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-public class Register extends Application {
-
+public class AddFood extends Application{
+	
 	public static void main(String[] arg) {
 		launch(arg);
 	}
@@ -31,9 +29,9 @@ public class Register extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
 
-		primaryStage.setTitle("Register New User");
+		primaryStage.setTitle("Add Food");
 
-		Label lblPageTitle = new Label("Register New User");
+		Label lblPageTitle = new Label("Add Food");
 		Label blankSpace = new Label("");
 		lblPageTitle.setAlignment(Pos.CENTER);
 
