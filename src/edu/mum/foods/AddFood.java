@@ -1,5 +1,6 @@
 package edu.mum.foods;
 
+import java.io.File;
 import java.sql.SQLException;
 
 import com.aquafx_project.AquaFx;
@@ -17,7 +18,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 public class AddFood extends Application{
 	
@@ -50,11 +53,22 @@ public class AddFood extends Application{
 		topGrid.add(lblFirstname, 0, 2);
 		topGrid.add(txtFirstname, 0, 3);
 
-		Label lblLastname = new Label("Category");
-		TextField txtLastname = new TextField();
-		txtLastname.setPrefWidth(300);
-		topGrid.add(lblLastname, 0, 4);
-		topGrid.add(txtLastname, 0, 5);
+//		Label lblLastname = new Label("Category");
+//		TextField txtLastname = new TextField();
+//		txtLastname.setPrefWidth(300);
+//		topGrid.add(lblLastname, 0, 4);
+//		topGrid.add(txtLastname, 0, 5);
+		
+		Label lblCategory = new Label("Category");
+		ComboBox<String> cboCategory = new ComboBox<String>();
+		cboCategory.getItems().addAll("-Select-", "American", "Nepali", "Combodian");
+		cboCategory.setValue("-Select-");
+		cboCategory.setPrefWidth(180);
+
+		topGrid.add(lblCategory, 0, 4);
+		topGrid.add(cboCategory, 0, 5);
+		
+		
 
 		Label lblEmail = new Label("Description");
 		TextArea txtEmail = new TextArea();
@@ -67,6 +81,37 @@ public class AddFood extends Application{
 		txtPassword.setPrefWidth(300);
 		topGrid.add(lblPrice, 0, 8);
 		topGrid.add(txtPassword, 0, 9);
+		
+		
+		
+		
+		
+
+		Label lblImage = new Label("");
+		Button btnImageChooser = new Button("Choose Image");
+		topGrid.add(lblImage, 0, 10);
+		topGrid.add(btnImageChooser, 0, 11);
+		
+		btnImageChooser.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				 FileChooser fileChooser = new FileChooser();
+				 fileChooser.setTitle("Open Resource File");
+				 fileChooser.getExtensionFilters().addAll(
+				         new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+				 File selectedFile = fileChooser.showOpenDialog(primaryStage);
+			}
+		});
+		
+		
+		
+		
+		
+		
+		
+		
 
 		Label lblSubmit = new Label("");
 		Button btnSubmit = new Button("Add");
