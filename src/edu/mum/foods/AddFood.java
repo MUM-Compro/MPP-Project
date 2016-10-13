@@ -110,7 +110,7 @@ public class AddFood extends Application {
 		mainGrid.setPadding(new Insets(10, 10, 10, 10));
 		mainGrid.add(topGrid, 0, 1);
 
-		Scene scene = new Scene(mainGrid, 650, 500);
+		Scene scene = new Scene(mainGrid, 450, 500);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		AquaFx.style();

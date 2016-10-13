@@ -8,6 +8,7 @@ import java.sql.Statement;
 import com.aquafx_project.AquaFx;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -58,32 +59,31 @@ public class Login extends Application {
 		txtPassword.setPrefWidth(300);
 		titleGrid.add(lblPassword, 0, 2);
 		titleGrid.add(txtPassword, 0, 3);
-		
-		
+
 		Label lblLogin = new Label("");
 		Button btnLogin = new Button("Login");
 		Button btnRegister = new Button("Register");
-		
-		//Image imageRegister = new Image(getClass().getResourceAsStream("add-user.png"));
-		//btnSubmit.setGraphic(new ImageView(imageRegister));
+
+		// Image imageRegister = new
+		// Image(getClass().getResourceAsStream("add-user.png"));
+		// btnSubmit.setGraphic(new ImageView(imageRegister));
 		btnLogin.setId("btnRegister");
 		btnRegister.setId("btnReset");
-		
+
 		HBox hbox = new HBox(20);
 		hbox.getChildren().addAll(btnLogin, btnRegister);
 		titleGrid.add(lblLogin, 0, 4);
 		titleGrid.add(hbox, 0, 5);
-		
 
-//		Label lblSubmit = new Label("");
-//		Button btnSubmit = new Button("Login");
-//		titleGrid.add(lblSubmit, 0, 10);
-//		titleGrid.add(btnSubmit, 0, 11);
-//
-//		Label lblRegister = new Label("");
-//		Button btnRegister = new Button("Register");
-//		titleGrid.add(lblRegister, 1, 10);
-//		titleGrid.add(btnRegister, 1, 11);
+		// Label lblSubmit = new Label("");
+		// Button btnSubmit = new Button("Login");
+		// titleGrid.add(lblSubmit, 0, 10);
+		// titleGrid.add(btnSubmit, 0, 11);
+		//
+		// Label lblRegister = new Label("");
+		// Button btnRegister = new Button("Register");
+		// titleGrid.add(lblRegister, 1, 10);
+		// titleGrid.add(btnRegister, 1, 11);
 
 		// add all grid into main grid
 		titleGrid.setAlignment(Pos.CENTER);
@@ -94,23 +94,22 @@ public class Login extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		AquaFx.style();
-		
-		
+
 		btnRegister.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				primaryStage.hide();
 				Register reg = new Register();
-				
+
 				try {
 					reg.start(Register.classStage);
+					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 		});
-		
-		
 
 		btnLogin.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -120,7 +119,6 @@ public class Login extends Application {
 				int sts = 1;
 				String enteredfname = "";
 				String enteredpw = "";
-				int enteredsts = 1;
 
 				String query = "select firstname, password, status FROM tblperson";
 				try {
@@ -132,29 +130,32 @@ public class Login extends Application {
 						fname = rs.getString("firstname");
 						pw = rs.getString("password");
 						sts = rs.getInt("status");
-						
-						enteredfname=txtEmail.getText();
-						enteredpw=txtPassword.getText();
-						
-						//checking condition
-						
-						if(fname.equals(enteredfname) && pw.equals(enteredpw)){
-							System.out.println("im inside");
-							Register.main(null);
-							
+
+						enteredfname = txtEmail.getText();
+						enteredpw = txtPassword.getText();
+
+						// checking condition
+
+						if (fname.equals(enteredfname) && pw.equals(enteredpw) && sts == 1) {
+							System.out.println("im admin");
+
+						} else if (fname.equals(enteredfname) && pw.equals(enteredpw) && sts == 2) {
+							System.out.println("im customer");
+
+						} else {
+							txtEmail.setText("");
+							txtPassword.setText("");
+
+							Alert alert = new Alert(AlertType.INFORMATION);
+							alert.setTitle("Try Again");
+							alert.setHeaderText("Error!");
+							alert.setContentText(
+									"Either your Username or password is not matched with our system data please try again");
+							alert.showAndWait();
+							break;
 						}
 					}
-					
-					txtEmail.setText("");
-					txtPassword.setText("");
-					
-					Alert alert = new Alert(AlertType.INFORMATION);
-					alert.setTitle("Try Again");
-					alert.setHeaderText("Error!");
-					alert.setContentText("Either your Username or password is not matched with our system data please try again");
-					alert.showAndWait();
-					
-					
+
 					rs.close();
 
 				} catch (ClassNotFoundException | SQLException e) {
