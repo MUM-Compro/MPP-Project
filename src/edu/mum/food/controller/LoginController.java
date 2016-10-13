@@ -6,9 +6,6 @@ import java.sql.*;
 
 public class LoginController {
 	
-	private String uname;
-	private String pass;
-	
    // JDBC driver name and database URL
    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
    static final String DB_URL = "jdbc:mysql://localhost/food";
@@ -42,7 +39,7 @@ public class LoginController {
          //Display values
          System.out.print("CID: " + cid + "\n");
          System.out.print("email: " + email + "\n");
-         System.out.print("password: " + password);
+         System.out.print("password: " + password + "\n");
       }
       rs.close();
    }catch(SQLException se){
@@ -65,5 +62,14 @@ public class LoginController {
          se.printStackTrace();
       }//end finally try
    }//end try
+   
+	
+	String un=Welcome.getUname();
+	String ps=Welcome.getPassword();
+	
+	System.out.println(un);
+	System.out.println(ps);
+	
+	
 }//end main
 }

@@ -21,6 +21,9 @@ import javafx.stage.Stage;
 
 public class Welcome extends Application {
 
+	static String pass = "im password";
+	static String uname = "im username";
+
 	public static void main(String[] arg) {
 		launch(arg);
 	}
@@ -41,18 +44,17 @@ public class Welcome extends Application {
 		topGrid.setAlignment(Pos.CENTER);
 		topGrid.setHgap(10);
 
-		Label lblItemCode = new Label("Email");
-		TextField txtItemCode = new TextField();
-		txtItemCode.setPrefWidth(300);
-		topGrid.add(lblItemCode, 0, 0);
-		topGrid.add(txtItemCode, 0, 1);
-		
+		Label lblEmail = new Label("Email");
+		TextField txtEmail = new TextField();
+		txtEmail.setPrefWidth(300);
+		topGrid.add(lblEmail, 0, 0);
+		topGrid.add(txtEmail, 0, 1);
+
 		Label lblPassword = new Label("Password");
 		TextField txtPassword = new TextField();
-		txtItemCode.setPrefWidth(300);
+		txtPassword.setPrefWidth(300);
 		topGrid.add(lblPassword, 0, 2);
 		topGrid.add(txtPassword, 0, 3);
-
 
 		Label lblSubmit = new Label("");
 		Button btnSubmit = new Button("Login");
@@ -70,6 +72,23 @@ public class Welcome extends Application {
 		primaryStage.show();
 		AquaFx.style();
 
+		btnSubmit.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				pass = txtPassword.getText();
+				uname = txtPassword.getText();
+				
+			}
+		});
+
+	}
+
+	public static String getUname() {
+		return uname;
+	}
+
+	public static String getPassword() {
+		return pass;
 	}
 
 }
