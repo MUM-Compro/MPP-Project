@@ -77,6 +77,16 @@ public class Login extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		AquaFx.style();
+		
+		
+		btnRegister.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				Register.launch();
+			}
+		});
+		
+		
 
 		btnSubmit.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -106,7 +116,7 @@ public class Login extends Application {
 						
 						if(fname.equals(enteredfname) && pw.equals(enteredpw)){
 							System.out.println("im inside");
-							Register.launch();
+							Register.main(null);
 							
 						}
 					}
