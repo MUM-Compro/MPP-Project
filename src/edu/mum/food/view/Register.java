@@ -18,7 +18,11 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Register extends Application {
@@ -48,9 +52,13 @@ public class Register extends Application {
 		Label lblFirstname = new Label("Firstname");
 		TextField txtFirstname = new TextField();
 		txtFirstname.setPrefWidth(300);
-
+		
+		//Label lblFirstnameValidate = new Label("te");
+		
 		topGrid.add(lblFirstname, 0, 2);
 		topGrid.add(txtFirstname, 0, 3);
+		
+		//topGrid.add(lblFirstnameValidate, 0, 30);
 
 		Label lblLastname = new Label("Lastname");
 		TextField txtLastname = new TextField();
@@ -101,8 +109,17 @@ public class Register extends Application {
 
 		Label lblSubmit = new Label("");
 		Button btnSubmit = new Button("Register");
+		Button btnReset = new Button("Reset");
+		
+		//Image imageRegister = new Image(getClass().getResourceAsStream("add-user.png"));
+		//btnSubmit.setGraphic(new ImageView(imageRegister));
+		btnSubmit.setId("btnRegister");
+		btnReset.setId("btnReset");
+		
+		HBox hbox = new HBox(10);
+		hbox.getChildren().addAll(btnSubmit, btnReset);
 		topGrid.add(lblSubmit, 0, 20);
-		topGrid.add(btnSubmit, 0, 21);
+		topGrid.add(hbox, 0, 21);
 
 		// add all grid into main grid
 		GridPane mainGrid = new GridPane();
@@ -110,7 +127,7 @@ public class Register extends Application {
 		mainGrid.setPadding(new Insets(10, 10, 10, 10));
 		mainGrid.add(topGrid, 0, 1);
 
-		Scene scene = new Scene(mainGrid, 650, 500);
+		Scene scene = new Scene(mainGrid, 450, 500);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		AquaFx.style();

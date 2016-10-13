@@ -70,7 +70,7 @@ public class AddFood extends Application{
 		topGrid.add(txtPassword, 0, 9);
 
 		Label lblSubmit = new Label("");
-		Button btnSubmit = new Button("Register");
+		Button btnSubmit = new Button("Add");
 		topGrid.add(lblSubmit, 0, 20);
 		topGrid.add(btnSubmit, 0, 21);
 
