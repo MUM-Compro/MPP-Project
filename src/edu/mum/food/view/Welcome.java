@@ -41,7 +41,7 @@ public class Welcome extends Application {
 		topGrid.setAlignment(Pos.CENTER);
 		topGrid.setHgap(10);
 
-		Label lblItemCode = new Label("Username");
+		Label lblItemCode = new Label("Email");
 		TextField txtItemCode = new TextField();
 		txtItemCode.setPrefWidth(300);
 		topGrid.add(lblItemCode, 0, 0);

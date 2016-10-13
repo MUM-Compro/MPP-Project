@@ -8,7 +8,7 @@ import java.sql.*;
  * @since 09/20/2016
  * @description this class use to connect to mysql database using jdbc other
  *              class can call connection method as required
- * */
+ */
 
 public class Connection {
 
@@ -20,8 +20,7 @@ public class Connection {
 	private static java.sql.Connection conn;
 
 	// Method connect to mysql database
-	public static java.sql.Connection getConnection()
-			throws ClassNotFoundException, SQLException {
+	public static java.sql.Connection getConnection() throws ClassNotFoundException, SQLException {
 		try {
 			Class.forName(driverName);
 			conn = DriverManager.getConnection(url, username, password);
@@ -32,10 +31,9 @@ public class Connection {
 		return conn;
 	}
 
-	public static void main(String[] args) throws ClassNotFoundException,
-			SQLException {
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		getConnection();
-		
+
 	}
 
 }
