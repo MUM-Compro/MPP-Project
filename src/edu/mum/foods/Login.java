@@ -82,7 +82,14 @@ public class Login extends Application {
 		btnRegister.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				Register.launch();
+				Register reg = new Register();
+				
+				try {
+					reg.start(Register.classStage);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		
