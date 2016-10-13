@@ -21,7 +21,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
-public class Welcome extends Application {
+public class Login extends Application {
 	
 	Register r= new Register();
 
