@@ -20,6 +20,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
@@ -57,23 +58,39 @@ public class Login extends Application {
 		txtPassword.setPrefWidth(300);
 		titleGrid.add(lblPassword, 0, 2);
 		titleGrid.add(txtPassword, 0, 3);
-
-		Label lblSubmit = new Label("");
-		Button btnSubmit = new Button("Login");
-		titleGrid.add(lblSubmit, 0, 10);
-		titleGrid.add(btnSubmit, 0, 11);
-
-		Label lblRegister = new Label("");
+		
+		
+		Label lblLogin = new Label("");
+		Button btnLogin = new Button("Login");
 		Button btnRegister = new Button("Register");
-		titleGrid.add(lblRegister, 1, 10);
-		titleGrid.add(btnRegister, 1, 11);
+		
+		//Image imageRegister = new Image(getClass().getResourceAsStream("add-user.png"));
+		//btnSubmit.setGraphic(new ImageView(imageRegister));
+		btnLogin.setId("btnRegister");
+		btnRegister.setId("btnReset");
+		
+		HBox hbox = new HBox(20);
+		hbox.getChildren().addAll(btnLogin, btnRegister);
+		titleGrid.add(lblLogin, 0, 4);
+		titleGrid.add(hbox, 0, 5);
+		
+
+//		Label lblSubmit = new Label("");
+//		Button btnSubmit = new Button("Login");
+//		titleGrid.add(lblSubmit, 0, 10);
+//		titleGrid.add(btnSubmit, 0, 11);
+//
+//		Label lblRegister = new Label("");
+//		Button btnRegister = new Button("Register");
+//		titleGrid.add(lblRegister, 1, 10);
+//		titleGrid.add(btnRegister, 1, 11);
 
 		// add all grid into main grid
 		titleGrid.setAlignment(Pos.CENTER);
 		titleGrid.setPadding(new Insets(10, 10, 10, 10));
 		titleGrid.add(topGrid, 0, 1);
 
-		Scene scene = new Scene(titleGrid, 750, 500);
+		Scene scene = new Scene(titleGrid, 450, 500);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		AquaFx.style();
@@ -95,7 +112,7 @@ public class Login extends Application {
 		
 		
 
-		btnSubmit.setOnAction(new EventHandler<ActionEvent>() {
+		btnLogin.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				String fname = "";
