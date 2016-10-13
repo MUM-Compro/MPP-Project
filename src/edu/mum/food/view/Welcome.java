@@ -1,5 +1,7 @@
 package edu.mum.food.view;
 
+import edu.mum.food.controller.*;
+
 import java.io.File;
 
 import com.aquafx_project.AquaFx;
@@ -20,6 +22,8 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 public class Welcome extends Application {
+	
+	Register r= new Register();
 
 	static String pass = "im password";
 	static String uname = "im username";
@@ -41,33 +45,37 @@ public class Welcome extends Application {
 
 		// top grid
 		GridPane topGrid = new GridPane();
-		topGrid.setAlignment(Pos.CENTER);
-		topGrid.setHgap(10);
+		titleGrid.setAlignment(Pos.CENTER);
+		titleGrid.setHgap(10);
 
 		Label lblEmail = new Label("Email");
 		TextField txtEmail = new TextField();
 		txtEmail.setPrefWidth(300);
-		topGrid.add(lblEmail, 0, 0);
-		topGrid.add(txtEmail, 0, 1);
+		titleGrid.add(lblEmail, 0, 0);
+		titleGrid.add(txtEmail, 0, 1);
 
 		Label lblPassword = new Label("Password");
 		TextField txtPassword = new TextField();
 		txtPassword.setPrefWidth(300);
-		topGrid.add(lblPassword, 0, 2);
-		topGrid.add(txtPassword, 0, 3);
+		titleGrid.add(lblPassword, 0, 2);
+		titleGrid.add(txtPassword, 0, 3);
 
 		Label lblSubmit = new Label("");
 		Button btnSubmit = new Button("Login");
-		topGrid.add(lblSubmit, 0, 10);
-		topGrid.add(btnSubmit, 0, 11);
+		titleGrid.add(lblSubmit, 0, 10);
+		titleGrid.add(btnSubmit, 0, 11);
+
+		Label lblRegister = new Label("");
+		Button btnRegister = new Button("Register");
+		titleGrid.add(lblRegister, 1, 10);
+		titleGrid.add(btnRegister, 1, 11);
 
 		// add all grid into main grid
-		GridPane mainGrid = new GridPane();
-		mainGrid.setAlignment(Pos.CENTER);
-		mainGrid.setPadding(new Insets(10, 10, 10, 10));
-		mainGrid.add(topGrid, 0, 1);
+		titleGrid.setAlignment(Pos.CENTER);
+		titleGrid.setPadding(new Insets(10, 10, 10, 10));
+		titleGrid.add(topGrid, 0, 1);
 
-		Scene scene = new Scene(mainGrid, 750, 500);
+		Scene scene = new Scene(titleGrid, 750, 500);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		AquaFx.style();
@@ -77,7 +85,13 @@ public class Welcome extends Application {
 			public void handle(ActionEvent event) {
 				pass = txtPassword.getText();
 				uname = txtPassword.getText();
-				
+				try {
+					r.start(primaryStage);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
 			}
 		});
 
