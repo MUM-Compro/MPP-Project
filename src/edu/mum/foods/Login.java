@@ -32,6 +32,8 @@ public class Login extends Application {
 		launch(arg);
 	}
 
+	static Stage loginStage = new Stage();
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
@@ -162,6 +164,7 @@ public class Login extends Application {
 							titleGrid.add(lblEror1, 0, 9);
 							Label lblEror = new Label("Password or Username is not matched");
 							titleGrid.add(lblEror, 0, 10);
+							
 						}
 					}
 

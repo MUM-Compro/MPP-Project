@@ -21,7 +21,7 @@ public class Dashboard extends Application {
 		Dashboard.dashStage = stage;
 		
 		// TODO Auto-generated method stub
-		Parent root = FXMLLoader.load(getClass().getResource("listfood.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
 
 		stage.setTitle("Admin Dashboard");
 		stage.setScene(new Scene(root, 640, 500));
