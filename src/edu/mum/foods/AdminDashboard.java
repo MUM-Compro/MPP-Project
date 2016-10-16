@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 public class AdminDashboard extends Application {
@@ -46,8 +47,10 @@ public class AdminDashboard extends Application {
 		Button btnItem = new Button("Item Details");
 		topGrid.add(btnItem, 0, 2);
 		
+		topGrid.add(new Label(""), 0, 3);
+		
 		Button btnReport = new Button("View Report");
-		topGrid.add(btnReport, 0, 3);
+		topGrid.add(btnReport, 0, 4);
 
 		// add all grid into main grid
 		GridPane mainGrid = new GridPane();
