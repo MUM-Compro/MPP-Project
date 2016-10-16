@@ -15,7 +15,7 @@ public class Dashboard extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		// TODO Auto-generated method stub
-		Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("listfood.fxml"));
 
 		stage.setTitle("FXML Welcome");
 		stage.setScene(new Scene(root, 640, 500));
