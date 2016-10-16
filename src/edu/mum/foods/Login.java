@@ -103,7 +103,7 @@ public class Login extends Application {
 
 				try {
 					reg.start(Register.classStage);
-					
+
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -114,11 +114,15 @@ public class Login extends Application {
 		btnLogin.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+
+				String enteredfname = txtEmail.getText();
+				String enteredpw = txtPassword.getText();
+				System.out.println(enteredfname);
+				System.out.println(enteredpw);
+
 				String fname = "";
 				String pw = "";
 				int sts = 1;
-				String enteredfname = "";
-				String enteredpw = "";
 
 				String query = "select firstname, password, status FROM tblperson";
 				try {
@@ -131,28 +135,33 @@ public class Login extends Application {
 						pw = rs.getString("password");
 						sts = rs.getInt("status");
 
-						enteredfname = txtEmail.getText();
-						enteredpw = txtPassword.getText();
+						if (enteredfname.equals(fname) && enteredpw.equals(pw) && sts == 1) {
+							primaryStage.hide();
+							Dashboard dreg = new Dashboard();
 
-						// checking condition
+							try {
+								dreg.start(Dashboard.dashStage);
 
-						if (fname.equals(enteredfname) && pw.equals(enteredpw) && sts == 1) {
-							System.out.println("im admin");
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						} else if (enteredfname.equals(fname) && enteredpw.equals(pw) && sts == 1) {
+							primaryStage.hide();
+							Dashboard dreg = new Dashboard();
 
-						} else if (fname.equals(enteredfname) && pw.equals(enteredpw) && sts == 2) {
-							System.out.println("im customer");
+							try {
+								dreg.start(Dashboard.dashStage);
 
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						} else {
-							txtEmail.setText("");
-							txtPassword.setText("");
-
-							Alert alert = new Alert(AlertType.INFORMATION);
-							alert.setTitle("Try Again");
-							alert.setHeaderText("Error!");
-							alert.setContentText(
-									"Either your Username or password is not matched with our system data please try again");
-							alert.showAndWait();
-							break;
+							Label lblEror1 = new Label("");
+							titleGrid.add(lblEror1, 0, 9);
+							Label lblEror = new Label("Password or Username is not matched");
+							titleGrid.add(lblEror, 0, 10);
 						}
 					}
 

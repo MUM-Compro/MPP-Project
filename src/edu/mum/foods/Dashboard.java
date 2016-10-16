@@ -11,13 +11,19 @@ public class Dashboard extends Application {
 	public static void main(String[] args) {
 			launch(Dashboard.class, args);
 	}
+	
+	static Stage dashStage = new Stage();
 
 	@Override
 	public void start(Stage stage) throws Exception {
+		
+		
+		Dashboard.dashStage = stage;
+		
 		// TODO Auto-generated method stub
 		Parent root = FXMLLoader.load(getClass().getResource("listfood.fxml"));
 
-		stage.setTitle("FXML Welcome");
+		stage.setTitle("Admin Dashboard");
 		stage.setScene(new Scene(root, 640, 500));
 		stage.show();
 	}
