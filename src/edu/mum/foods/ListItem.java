@@ -10,6 +10,7 @@ import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -37,17 +38,95 @@ public class ListItem extends Application {
 	}
 
 	@Override
-	public void start(Stage primaryStage) {
-		ListView<String> listview = new ListView<>(FXCollections.observableArrayList("Orange", "Pear", "Guava",
-				"Pineapple", "Tangerine", "Canaloupe", "Mango", "Banana", "Apple"));
+	public void start(Stage primaryStage) throws ClassNotFoundException, SQLException {
 
-		StackPane layout = new StackPane();
-		layout.setStyle("-fx-padding: 10; -fx-background-color: cornsilk; -fx-font-size: 25px;");
-		layout.getChildren().add(listview);
-		primaryStage.setScene(new Scene(layout, 600, 550));
+		ListView<String> list = new ListView<>();
+
+		ObservableList<String> items = FXCollections.observableArrayList();
+
+		String query = "SELECT * FROM tblItems";
+
+		try {
+			Statement stmt = Connection.getConnection().createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				System.out.println(rs.getString("item_name"));
+
+				items.addAll(rs.getString("item_name"));
+
+				list.setItems(items);
+			}
+
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			Connection.getConnection().close();
+		}
+
+		primaryStage.setTitle("Food Menu");
+
+		Label lblPageTitle = new Label("Food Menu");
+		Label blankSpace = new Label("");
+		Label blankSpace2 = new Label("");
+		Label blankSpace3 = new Label("Select your favorite food, then click Order");
+		Label blankSpace4 = new Label("");
+		lblPageTitle.setAlignment(Pos.BASELINE_LEFT);
+
+		// top grid
+		GridPane topGrid = new GridPane();
+		topGrid.setAlignment(Pos.BASELINE_LEFT);
+		topGrid.setHgap(10);
+
+		topGrid.add(lblPageTitle, 0, 0);
+		topGrid.add(blankSpace, 0, 1);
+		topGrid.add(blankSpace3, 0, 3);
+		topGrid.add(blankSpace4, 0, 4);
+		
+		Label detail = new Label("Detail: ");
+		Label name = new Label("Name: ");
+		Label category = new Label("Category: ");
+		Label price = new Label("Price: ");
+		Label desc = new Label("Description: ");
+		
+		Button btnOrder = new Button("Order");
+		
+		VBox vbox = new VBox(15);
+		vbox.getChildren().add(detail);
+		vbox.getChildren().add(name);
+		vbox.getChildren().add(category);
+		vbox.getChildren().add(price);
+		vbox.getChildren().add(desc);
+		vbox.getChildren().add(btnOrder);
+		
+		
+		
+		HBox hbox = new HBox(25);
+		hbox.getChildren().add(list);
+		hbox.getChildren().add(vbox);
+
+		topGrid.add(hbox, 0, 5);
+
+		// add all grid into main grid
+		GridPane mainGrid = new GridPane();
+		mainGrid.setAlignment(Pos.BASELINE_LEFT);
+		mainGrid.setPadding(new Insets(10, 10, 10, 10));
+		mainGrid.add(topGrid, 0, 1);
+
+		Scene scene = new Scene(mainGrid, 550, 500);
+		primaryStage.setScene(scene);
 		primaryStage.show();
+		AquaFx.style();
 
-		for (Node node : listview.lookupAll(".scroll-bar")) {
+		// StackPane layout = new StackPane();
+		// layout.setStyle("-fx-padding: 10; -fx-background-color: cornsilk;
+		// -fx-font-size: 25px;");
+		// layout.getChildren().add(listview);
+		// primaryStage.setScene(new Scene(layout, 600, 550));
+		// primaryStage.show();
+
+		for (Node node : list.lookupAll(".scroll-bar")) {
 			if (node instanceof ScrollBar) {
 				final ScrollBar bar = (ScrollBar) node;
 				bar.valueProperty().addListener(new ChangeListener<Number>() {
@@ -60,11 +139,36 @@ public class ListItem extends Application {
 			}
 		}
 
-		listview.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+		list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				System.out.println(
 						"ListView selection changed from oldValue = " + oldValue + " to newValue = " + newValue);
+				
+				String query = "SELECT * FROM tblItems WHERE item_name='"+newValue+"'";
+
+				try {
+					Statement stmt = Connection.getConnection().createStatement();
+					ResultSet rs = stmt.executeQuery(query);
+
+					while (rs.next()) {
+						name.setText("Name: "+rs.getString("item_name"));
+						category.setText("Category: "+ rs.getString("identifier"));
+						price.setText("Price: " + rs.getDouble("price"));
+						desc.setText("Description: " + rs.getString("description"));
+					}
+
+				} catch (ClassNotFoundException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+					try {
+						Connection.getConnection().close();
+					} catch (ClassNotFoundException | SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 			}
 		});
 	}
