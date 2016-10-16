@@ -139,10 +139,10 @@ public class Login extends Application {
 
 						if (enteredfname.equals(fname) && enteredpw.equals(pw) && sts == 1) {
 							primaryStage.hide();
-							Dashboard dreg = new Dashboard();
+							FoodAdminDashboard dreg = new FoodAdminDashboard();
 
 							try {
-								dreg.start(Dashboard.dashStage);
+								dreg.start(FoodAdminDashboard.fadStage);
 
 							} catch (Exception e) {
 								// TODO Auto-generated catch block
