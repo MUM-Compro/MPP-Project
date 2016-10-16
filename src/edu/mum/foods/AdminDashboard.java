@@ -51,6 +51,11 @@ public class AdminDashboard extends Application {
 		
 		Button btnReport = new Button("View Report");
 		topGrid.add(btnReport, 0, 4);
+		
+		topGrid.add(new Label(""), 0, 5);
+		
+		Button btnUser = new Button("View Report");
+		topGrid.add(btnUser, 0, 6);
 
 		// add all grid into main grid
 		GridPane mainGrid = new GridPane();
@@ -86,7 +91,18 @@ public class AdminDashboard extends Application {
 				}
 			}
 		});
-
+		
+		btnUser.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				primaryStage.hide();
+				try {
+					
+				} catch (Exception e) {
+					
+				}
+			}
+		});
 
 
 
