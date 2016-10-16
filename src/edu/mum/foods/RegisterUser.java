@@ -9,8 +9,8 @@ public class RegisterUser {
 			String password, String gender, String address, String contact_name,
 			String access_level, int status) throws ClassNotFoundException, SQLException{
 		
-		String query = "INSERT INTO tblPerson (firstname, lastname, email, password, gender, address, contact_number, access_level, status) VALUES('"+firstname+"','"+lastname+"','"+email+"','"+password+"','"+
-				gender+"','"+address+"','"+contact_name+"','"+access_level+"',"+status+")";
+		String query = "INSERT INTO tblPerson (firstname, lastname, email, password, gender, address, contact_number, access_level) VALUES('"+firstname+"','"+lastname+"','"+email+"','"+password+"','"+
+				gender+"','"+address+"','"+contact_name+"','"+access_level+")";
 		
 		
 		try {

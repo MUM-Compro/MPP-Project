@@ -13,7 +13,7 @@ import java.sql.*;
 public class Connection {
 
 	// Database connection constant
-	private static String url = "jdbc:mysql://localhost:3306/food";
+	private static String url = "jdbc:mysql://localhost/food";
 	private static String driverName = "com.mysql.jdbc.Driver";
 	private static String username = "root";
 	private static String password = "root";
