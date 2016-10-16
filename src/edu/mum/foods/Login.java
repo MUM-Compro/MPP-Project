@@ -124,9 +124,9 @@ public class Login extends Application {
 
 				String fname = "";
 				String pw = "";
-				int sts = 1;
+				int st = 1;
 
-				String query = "select firstname, password, status FROM tblperson";
+				String query = "select firstname, password, access_level FROM tblperson";
 				try {
 					Statement stmt = Connection.getConnection().createStatement();
 					ResultSet rs = stmt.executeQuery(query);
@@ -135,25 +135,27 @@ public class Login extends Application {
 						// Retrieve by column name
 						fname = rs.getString("firstname");
 						pw = rs.getString("password");
-						sts = rs.getInt("status");
+						st = rs.getInt("access_level");
 
-						if (enteredfname.equals(fname) && enteredpw.equals(pw) && sts == 1) {
+						if (enteredfname.equals(fname) && enteredpw.equals(pw) && st == 1) {
 							primaryStage.hide();
-							FoodAdminDashboard dreg = new FoodAdminDashboard();
+							System.out.println(fname);
+							AdminDashboard dreg = new AdminDashboard();
 
 							try {
-								dreg.start(FoodAdminDashboard.fadStage);
+								dreg.start(AdminDashboard.classStage);
 
 							} catch (Exception e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-						} else if (enteredfname.equals(fname) && enteredpw.equals(pw) && sts == 1) {
+						} 
+						else if (enteredfname.equals(fname) && enteredpw.equals(pw) && st == 2) {
 							primaryStage.hide();
-							Dashboard dreg = new Dashboard();
+							ListItem2 dreg = new ListItem2();
 
 							try {
-								dreg.start(Dashboard.dashStage);
+								dreg.start(ListItem2.list2Stage);
 
 							} catch (Exception e) {
 								// TODO Auto-generated catch block
@@ -164,7 +166,7 @@ public class Login extends Application {
 							titleGrid.add(lblEror1, 0, 9);
 							Label lblEror = new Label("Password or Username is not matched");
 							titleGrid.add(lblEror, 0, 10);
-							
+
 						}
 					}
 

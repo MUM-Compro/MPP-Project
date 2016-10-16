@@ -28,6 +28,8 @@ public class ListItem2 extends Application {
 	public static void main(String[] arg) {
 		launch(arg);
 	}
+	
+	static Stage list2Stage = new Stage();
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
