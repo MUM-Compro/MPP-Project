@@ -1,3 +1,4 @@
+
 package edu.mum.foods;
 
 import java.sql.SQLException;
@@ -13,6 +14,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 public class AdminDashboard extends Application {
@@ -43,18 +46,29 @@ public class AdminDashboard extends Application {
 		topGrid.add(lblPageTitle, 0, 0);
 		topGrid.add(blankSpace, 0, 1);
 
-		Button btnItem = new Button("Item Details");
+		Button btnItem = new Button("Manage Item");
 		topGrid.add(btnItem, 0, 2);
-		
+		btnItem.setMinSize(210, 50);
+
 		topGrid.add(new Label(""), 0, 3);
-		
+
 		Button btnReport = new Button("View Report");
 		topGrid.add(btnReport, 0, 4);
-		
+		btnReport.setMinSize(210, 50);
+
 		topGrid.add(new Label(""), 0, 5);
-		
-		Button btnUser = new Button("View Report");
+
+		Button btnUser = new Button("Manage User");
 		topGrid.add(btnUser, 0, 6);
+		btnUser.setMinSize(210, 50);
+
+		topGrid.add(new Label(""), 0, 6);
+		topGrid.add(new Label(""), 0, 7);
+		topGrid.add(new Label(""), 0, 8);
+		topGrid.add(new Label(""), 0, 9);
+		topGrid.add(new Label(""), 0, 10);
+		Button btnBack = new Button("Back");
+		topGrid.add(btnBack, 0, 23);
 
 		// add all grid into main grid
 		GridPane mainGrid = new GridPane();
@@ -71,39 +85,59 @@ public class AdminDashboard extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				primaryStage.hide();
+				FoodAdminDashboard dreg = new FoodAdminDashboard();
+
 				try {
-					
+					dreg.start(FoodAdminDashboard.fadStage);
+
 				} catch (Exception e) {
-					
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
 		});
-		
+
 		btnReport.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				primaryStage.hide();
 				try {
-					
+
 				} catch (Exception e) {
-					
+
 				}
 			}
 		});
-		
+
 		btnUser.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				primaryStage.hide();
+				ManageCustomer dreg = new ManageCustomer();
+
 				try {
-					
+					dreg.start(ManageCustomer.mcStage);
+
 				} catch (Exception e) {
-					
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
 		});
 
+		btnBack.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				primaryStage.hide();
+				Login lreg = new Login();
 
+				try {
+					lreg.start(Login.loginStage);
+				} catch (Exception e) {
+
+				}
+			}
+		});
 
 	}
 
