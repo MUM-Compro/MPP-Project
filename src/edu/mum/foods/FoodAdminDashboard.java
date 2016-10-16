@@ -36,6 +36,7 @@ public class FoodAdminDashboard extends Application {
 		primaryStage.setTitle("Welcome to Food Delivery Management System");
 		
 		GridPane mainGrid = new GridPane();
+		mainGrid.setPadding(new Insets(10, 10, 10, 10));
 		GridPane topGrid = new GridPane();
 		topGrid.setAlignment(Pos.TOP_CENTER);
 		topGrid.setHgap(10);
@@ -58,12 +59,31 @@ public class FoodAdminDashboard extends Application {
         topGrid.add(btnUpdateFood, 0, 4);
         topGrid.add(btnSerachFood, 1, 4);
         
+        topGrid.add(new Label(""), 0, 6);
+		Button btnBack = new Button("Back");
+		topGrid.add(btnBack, 0, 23);
+        
         
         mainGrid.add(topGrid, 0, 1);
 		Scene scene = new Scene(mainGrid, 450, 500);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		AquaFx.style();
+		
+		
+		btnBack.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				primaryStage.hide();
+				AdminDashboard lreg = new AdminDashboard();
+
+				try {
+					lreg.start(AdminDashboard.classStage);
+				} catch (Exception e) {
+
+				}
+			}
+		});
 	}
 
 }
