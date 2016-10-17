@@ -88,10 +88,10 @@ public class FoodAdminDashboard extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				primaryStage.hide();
-				AddFoodItem lreg = new AddFoodItem();
+				AddFood lreg = new AddFood();
 
 				try {
-					lreg.start(AddFoodItem.classStage);
+					lreg.start(AddFood.classStage);
 
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
