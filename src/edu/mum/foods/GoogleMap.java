@@ -35,6 +35,8 @@ public class GoogleMap extends Application {
     public static void main(String[] args){
         launch(args);
     }
+    
+    static Stage classStage= new Stage();
 }
 class Browser extends Region {
 	
