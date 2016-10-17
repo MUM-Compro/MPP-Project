@@ -209,6 +209,18 @@ public class RemoveCustomer extends Application {
 							alert.setContentText("You have successful remoed the user from our system!");
 							alert.showAndWait();
 							
+							primaryStage.hide();
+							
+
+							try {
+								RemoveCustomer r= new RemoveCustomer();
+								r.start(RemoveCustomer.classStage);
+
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							
 						} catch (ClassNotFoundException | SQLException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
