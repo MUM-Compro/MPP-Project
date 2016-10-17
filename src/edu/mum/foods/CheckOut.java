@@ -60,6 +60,7 @@ public class CheckOut extends Application {
 			while (rs.next()) {
 
 				System.out.println(rs.getInt("oid"));
+				oid = rs.getInt("oid");
 				
 				name = rs.getString("i.item_name");
 				qty = rs.getInt("o.qty");
@@ -209,6 +210,71 @@ public class CheckOut extends Application {
 		
 		topGrid.add(hbox3, 0, 50);
 		
+		//check out button event on click
+		checkout.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				
+				String query = "INSERT INTO tblDelivery (oid, cname, address, city, state, zip, phone, status, longtitude, latitude) VALUES("+oid+",'"+txtCustomerName.getText()+"'"+
+						",'"+txtAddress.getText()+"','"+txtCity.getText()+"','"+txtState.getText()+"','"+
+						txtZip.getText()+"','"+txtPhone.getText()+"','New','"+txtLongitude.getText()+"','"+
+						txtLatitude.getText()+"')";
+
+				try {
+					Statement stmt = Connection.getConnection().createStatement();
+					stmt.executeUpdate(query);
+					
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Information Dialog");
+					alert.setHeaderText("Successful!");
+					alert.setContentText("You have successful order item with us, check dashboard to track your order!");
+
+					alert.showAndWait();
+					
+
+						CustomerDashboard dreg = new CustomerDashboard();
+
+						try {
+							dreg.start(CustomerDashboard.customerdashstage);
+							primaryStage.close();
+
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
+
+				} catch (ClassNotFoundException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+					try {
+						Connection.getConnection().close();
+					} catch (ClassNotFoundException | SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		
+		//cancel button event on click
+		cancel.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				ListItem dreg = new ListItem();
+
+				try {
+					dreg.start(ListItem.listitemStage);
+					primaryStage.close();
+
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		
 		
 		
 		
@@ -231,5 +297,6 @@ public class CheckOut extends Application {
 	private double price;
 	private int cid;
 	private double amount;
+	private int oid;
 
 }

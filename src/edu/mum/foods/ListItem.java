@@ -34,6 +34,8 @@ public class ListItem extends Application implements ActionListener {
 	Button btnOrder = new Button("Order");
 	Scene scene1, scene2, scene3;
 	Stage thestage;
+	
+	static Stage listitemStage = new Stage();
 
 	public static void main(String[] arg) {
 		launch(arg);

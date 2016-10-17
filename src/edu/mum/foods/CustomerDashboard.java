@@ -19,6 +19,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class CustomerDashboard extends Application {
+	
+	static Stage customerdashstage = new Stage();
 
 	public static void main(String[] arg) {
 		launch(arg);
