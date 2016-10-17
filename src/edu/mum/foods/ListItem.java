@@ -307,10 +307,10 @@ public class ListItem extends Application implements ActionListener {
 												
 							
 							//System.out.println(email);
-							CheckOut dreg = new CheckOut();
+							OrderCheckOut dreg = new OrderCheckOut();
 
 							try {
-								dreg.start(CheckOut.classStage);
+								dreg.start(OrderCheckOut.classStage);
 
 							} catch (Exception e) {
 								// TODO Auto-generated catch block
@@ -318,10 +318,10 @@ public class ListItem extends Application implements ActionListener {
 							}
 						} else if (enteredfname.equals(email) && enteredpw.equals(pw) && st.equals("2")) {
 							primaryStage.hide();
-							CheckOut dreg = new CheckOut();
+							OrderCheckOut dreg = new OrderCheckOut();
 
 							try {
-								dreg.start(CheckOut.classStage);
+								dreg.start(OrderCheckOut.classStage);
 
 							} catch (Exception e) {
 								// TODO Auto-generated catch block

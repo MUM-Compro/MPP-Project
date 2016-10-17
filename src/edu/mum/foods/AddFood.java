@@ -1,11 +1,16 @@
 package edu.mum.foods;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.sql.SQLException;
+import java.util.List;
+
+import javax.activation.MimeType;
 
 import com.aquafx_project.AquaFx;
 
 import javafx.application.Application;
+import javafx.beans.property.ObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -13,6 +18,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -20,6 +26,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Path;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -86,18 +94,49 @@ public class AddFood extends Application {
 		Button btnImageChooser = new Button("Choose Image");
 		topGrid.add(lblImage, 0, 10);
 		topGrid.add(btnImageChooser, 0, 11);
+		
+
+
+		
+		Label imagepath = new Label("");
+		topGrid.add(imagepath, 0, 19);
 
 		btnImageChooser.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
+				
+
 				FileChooser fileChooser = new FileChooser();
-				fileChooser.setTitle("Open Resource File");
-				fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
-				File selectedFile = fileChooser.showOpenDialog(primaryStage);
+				File fileToSave = fileChooser.showSaveDialog(primaryStage);
+				File defaultDirectory = new File("resource/");
+				fileChooser.setInitialDirectory(defaultDirectory);
+
+				if (fileToSave != null) {
+					try {
+						FileOutputStream fos = new FileOutputStream(fileToSave);
+
+					} catch (Exception e) {
+						Alert alert = new Alert(AlertType.ERROR, "Unable to save file : " + e.getMessage(), ButtonType.CLOSE);
+						alert.showAndWait();
+						return;
+					}
+				}
+
+			    System.out.println(fileToSave.getName());
+
+			    filename = fileToSave.getName();
+			    
+			    
+			    
+			    System.out.println(filename);
+
 			}
 		});
+		
+
+
 
 		Label lblSubmit = new Label("");
 		Button btnSubmit = new Button("Add");
@@ -121,7 +160,7 @@ public class AddFood extends Application {
 
 				try {
 					RegisterFood.getRegisterFood(txtFoodname.getText(), cboCategory.getValue(), txtDescription.getText(),
-							txtPrice.getText(), btnImageChooser.getText());
+							txtPrice.getText(), filename);
 					System.out.println("Inserted");
 
 					Alert alert = new Alert(AlertType.INFORMATION);
@@ -141,5 +180,7 @@ public class AddFood extends Application {
 		});
 
 	}
+	
+	private String filename;
 
 }

@@ -7,7 +7,7 @@ public class RegisterFood {
 	
 	public static void getRegisterFood(String foodname, String category, String description, String price, String img) throws ClassNotFoundException, SQLException{
 		
-		String query = "INSERT INTO tblPerson (item_name, identifier, description, price, image) VALUES('"+foodname+"','"+category+"','"+description+"','"+price+"','"+img+")";
+		String query = "INSERT INTO tblItems (item_name, identifier, description, price, image) VALUES('"+foodname+"','"+category+"','"+description+"','"+price+"','"+img+"')";
 		
 		
 		try {

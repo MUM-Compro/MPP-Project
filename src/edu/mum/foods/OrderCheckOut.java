@@ -29,7 +29,7 @@ import javafx.stage.Stage;
 
 import edu.mum.foods.*;
 
-public class CheckOut extends Application {
+public class OrderCheckOut extends Application {
 	
 	static Stage classStage = new Stage();
 
