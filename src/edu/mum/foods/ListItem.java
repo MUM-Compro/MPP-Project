@@ -338,6 +338,27 @@ public class ListItem extends Application implements ActionListener {
 						
 
 						cid = rs.getInt("cid");
+						
+						String sql = "INSERT INTO tblOrder (order_status, qty, price, sid, iid) VALUES('New'," + qty+","+p+"," + cid+","+id+")";
+
+						try {
+							Statement s = Connection.getConnection().createStatement();
+							s.executeUpdate(sql);
+
+
+
+						} catch (ClassNotFoundException | SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} finally {
+							try {
+								Connection.getConnection().close();
+							} catch (ClassNotFoundException | SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+						
 						System.out.println(id);
 						System.out.println(cid);
 						System.out.println(qty);
@@ -354,28 +375,12 @@ public class ListItem extends Application implements ActionListener {
 					e.printStackTrace();
 				} finally {
 					//insert order into table
-					String sql = "INSERT INTO tblOrder (order_status, qty, price, sid, iid) VALUES('New'," + qty+","+p+"," + cid+","+id+")";
 
-					try {
-						Statement s = Connection.getConnection().createStatement();
-						s.executeUpdate(sql);
-
-
-
-					} catch (ClassNotFoundException | SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} finally {
-						try {
-							Connection.getConnection().close();
-						} catch (ClassNotFoundException | SQLException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
 				}
 
 				System.out.println();
+				
+				
 
 			}
 		});
