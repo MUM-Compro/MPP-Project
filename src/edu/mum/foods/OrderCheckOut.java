@@ -30,7 +30,7 @@ import javafx.stage.Stage;
 import edu.mum.foods.*;
 
 public class OrderCheckOut extends Application {
-	
+
 	static Stage classStage = new Stage();
 
 	public static void main(String[] arg) {
@@ -44,7 +44,7 @@ public class OrderCheckOut extends Application {
 
 		Label lblPageTitle = new Label("Check Out");
 		Label blankSpace = new Label("");
-		Label lblItem = new Label("Items");		
+		Label lblItem = new Label("Items");
 		Label blankSpace2 = new Label("");
 		lblPageTitle.setAlignment(Pos.CENTER);
 
@@ -62,18 +62,13 @@ public class OrderCheckOut extends Application {
 				System.out.println(rs.getInt("oid"));
 				oid = rs.getInt("oid");
 				cid = rs.getInt("sid");
-				
+
 				name = rs.getString("i.item_name");
 				qty = rs.getInt("o.qty");
 				price = rs.getDouble("o.price");
 				amount = qty * price;
-				
 
 			}
-			
-			
-			
-			
 
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
@@ -91,43 +86,42 @@ public class OrderCheckOut extends Application {
 		topGrid.add(blankSpace, 0, 1);
 		topGrid.add(lblItem, 0, 2);
 		topGrid.add(blankSpace2, 0, 3);
-		
-		
+
 		HBox hbox = new HBox(120);
 		Label name = new Label("Name");
 		Label qty = new Label("Qty");
-		Label uprice = new Label ("Unit Price");
+		Label uprice = new Label("Unit Price");
 		Label amout = new Label("Amount");
 		hbox.getChildren().add(name);
 		hbox.getChildren().add(qty);
 		hbox.getChildren().add(uprice);
 		hbox.getChildren().add(amout);
-		
+
 		topGrid.add(hbox, 0, 4);
-		
+
 		HBox hbox2 = new HBox(25);
 		TextField n = new TextField(this.name);
 		ComboBox<String> cboQty = new ComboBox<String>();
 		cboQty.getItems().addAll("1", "2", "3", "4", "5");
 		cboQty.setValue(String.valueOf(this.qty));
 		cboQty.setPrefWidth(100);
-		
+
 		TextField unit_price = new TextField();
 		unit_price.setText(String.valueOf(price));
-		
+
 		TextField amount = new TextField();
 		amount.setText(String.valueOf(this.amount));
 		hbox2.getChildren().add(n);
 		hbox2.getChildren().add(cboQty);
 		hbox2.getChildren().add(unit_price);
 		hbox2.getChildren().add(amount);
-		
+
 		topGrid.add(hbox2, 0, 5);
-		
+
 		Label blankSpace4 = new Label("");
 		topGrid.add(blankSpace4, 0, 4);
-		
-		//declare some components for customer address and delivery
+
+		// declare some components for customer address and delivery
 		Label customerinfo = new Label("Customer Delivery Info");
 		Label lblCustomerName = new Label("Name");
 		Label lblAddress = new Label("Address");
@@ -149,10 +143,10 @@ public class OrderCheckOut extends Application {
 		TextField txtStatus = new TextField();
 		TextField txtLongitude = new TextField();
 		TextField txtLatitude = new TextField();
-		
+
 		// get the latest order (temporary)
 
-		String query2 = "SELECT * FROM tblPerson WHERE cid="+cid;
+		String query2 = "SELECT * FROM tblPerson WHERE cid=" + cid;
 		System.out.println(cid);
 
 		try {
@@ -173,8 +167,8 @@ public class OrderCheckOut extends Application {
 		} finally {
 			Connection.getConnection().close();
 		}
-		
-		//customer delivery address
+
+		// customer delivery address
 		Label blankSpace5 = new Label("");
 		topGrid.add(blankSpace5, 0, 6);
 		Label blankSpace6 = new Label("");
@@ -184,7 +178,7 @@ public class OrderCheckOut extends Application {
 		topGrid.add(txtCustomerName, 0, 10);
 		topGrid.add(lblAddress, 0, 11);
 		topGrid.add(txtAddress, 0, 12);
-	
+
 		HBox addressHBox = new HBox(25);
 		VBox addressVBox1 = new VBox();
 		addressVBox1.getChildren().add(lblCity);
@@ -201,16 +195,16 @@ public class OrderCheckOut extends Application {
 		addressHBox.getChildren().add(addressVBox2);
 		addressHBox.getChildren().add(addressVBox3);
 		topGrid.add(addressHBox, 0, 13);
-		
-		
-		//customer input long and lat ***this is optional but good if they input
+
+		// customer input long and lat ***this is optional but good if they
+		// input
 		Label blankSpace7 = new Label("");
 		topGrid.add(blankSpace7, 0, 14);
 		topGrid.add(lblTracking, 0, 15);
 		Label blankSpace8 = new Label("");
 		topGrid.add(blankSpace8, 0, 16);
 
-		HBox tracking = new HBox (25);
+		HBox tracking = new HBox(25);
 		VBox trackingvbox = new VBox(10);
 		trackingvbox.getChildren().add(lblLongtitude);
 		trackingvbox.getChildren().add(lblLatitude);
@@ -220,54 +214,52 @@ public class OrderCheckOut extends Application {
 		tracking.getChildren().add(trackingvbox);
 		tracking.getChildren().add(trackingvboxtext);
 		topGrid.add(tracking, 0, 18);
-		
+
 		Label blankSpac10 = new Label("");
 		topGrid.add(blankSpac10, 0, 19);
-		
-		
-		
-		//checkout part
+
+		// checkout part
 		HBox hbox3 = new HBox(25);
 		Button checkout = new Button("Check Out");
 		Button cancel = new Button("Cancel");
 		hbox3.getChildren().add(checkout);
 		hbox3.getChildren().add(cancel);
-		
+
 		topGrid.add(hbox3, 0, 50);
-		
-		//check out button event on click
+
+		// check out button event on click
 		checkout.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				
-				String query = "INSERT INTO tblDelivery (oid, cname, address, city, state, zip, phone, status, longtitude, latitude) VALUES("+oid+",'"+txtCustomerName.getText()+"'"+
-						",'"+txtAddress.getText()+"','"+txtCity.getText()+"','"+txtState.getText()+"','"+
-						txtZip.getText()+"','"+txtPhone.getText()+"','New','"+txtLongitude.getText()+"','"+
-						txtLatitude.getText()+"')";
+
+				String query = "INSERT INTO tblDelivery (oid, cname, address, city, state, zip, phone, status, longtitude, latitude) VALUES("
+						+ oid + ",'" + txtCustomerName.getText() + "'" + ",'" + txtAddress.getText() + "','"
+						+ txtCity.getText() + "','" + txtState.getText() + "','" + txtZip.getText() + "','"
+						+ txtPhone.getText() + "','New','" + txtLongitude.getText() + "','" + txtLatitude.getText()
+						+ "')";
 
 				try {
 					Statement stmt = Connection.getConnection().createStatement();
 					stmt.executeUpdate(query);
-					
+
 					Alert alert = new Alert(AlertType.INFORMATION);
 					alert.setTitle("Information Dialog");
 					alert.setHeaderText("Successful!");
-					alert.setContentText("You have successful order item with us, check dashboard to track your order!");
+					alert.setContentText(
+							"You have successful order item with us, check dashboard to track your order!");
 
 					alert.showAndWait();
-					
 
-						ListItem dreg = new ListItem();
+					primaryStage.hide();
+					GoogleMap lreg = new GoogleMap();
 
-						try {
-							dreg.start(ListItem.listitemStage);
-							primaryStage.close();
+					try {
+						lreg.start(GoogleMap.classStage);
 
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 
 				} catch (ClassNotFoundException | SQLException e) {
 					// TODO Auto-generated catch block
@@ -282,8 +274,8 @@ public class OrderCheckOut extends Application {
 				}
 			}
 		});
-		
-		//cancel button event on click
+
+		// cancel button event on click
 		cancel.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -299,9 +291,8 @@ public class OrderCheckOut extends Application {
 				}
 			}
 		});
-		
-		
-		cboQty.setOnAction(new EventHandler<ActionEvent>(){
+
+		cboQty.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent arg0) {
@@ -311,12 +302,8 @@ public class OrderCheckOut extends Application {
 				System.out.println(a);
 				amount.setText(String.valueOf(a));
 			}
-			
+
 		});
-		
-		
-		
-		
 
 		// add all grid into main grid
 		GridPane mainGrid = new GridPane();
@@ -329,7 +316,7 @@ public class OrderCheckOut extends Application {
 		primaryStage.show();
 		AquaFx.style();
 	}
-	
+
 	private String name;
 	private int qty;
 	private double price;
