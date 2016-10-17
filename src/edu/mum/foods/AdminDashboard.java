@@ -101,8 +101,10 @@ public class AdminDashboard extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				primaryStage.hide();
-				try {
+				Report dreg = new Report();
 
+				try {
+					dreg.start(Report.classStage);
 				} catch (Exception e) {
 
 				}
