@@ -37,6 +37,8 @@ public class AddFood extends Application {
 	public static void main(String[] arg) {
 		launch(arg);
 	}
+	
+	static Stage classStage= new Stage();
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
