@@ -25,7 +25,7 @@ import javafx.stage.Stage;
 
 import edu.mum.foods.*;
 
-public class Order extends Application {
+public class CheckOut extends Application {
 
 	public static void main(String[] arg) {
 		launch(arg);
@@ -34,9 +34,9 @@ public class Order extends Application {
 	@Override
 	public void start(Stage primaryStage) throws ClassNotFoundException, SQLException {
 
-		primaryStage.setTitle("Order Cart");
+		primaryStage.setTitle("Check Out");
 
-		Label lblPageTitle = new Label("Order Cart");
+		Label lblPageTitle = new Label("Check Out");
 		Label blankSpace = new Label("");
 		lblPageTitle.setAlignment(Pos.CENTER);
 		

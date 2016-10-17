@@ -5,8 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.aquafx_project.AquaFx;
-
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -17,7 +15,6 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -32,11 +29,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class ListItem extends Application implements ActionListener{
-	
+public class ListItem extends Application implements ActionListener {
+
 	Button btnOrder = new Button("Order");
-	Scene scene1, scene2;
-    Stage thestage;
+	Scene scene1, scene2, scene3;
+	Stage thestage;
 
 	public static void main(String[] arg) {
 		launch(arg);
@@ -102,15 +99,12 @@ public class ListItem extends Application implements ActionListener{
 		imv.autosize();
 
 		System.out.println(this.getClass());
-		
+
 		Label lblQty = new Label("Quality: ");
 		ComboBox<String> cboQty = new ComboBox<String>();
 		cboQty.getItems().addAll("1", "2", "3", "4", "5");
 		cboQty.setValue("1");
 		cboQty.setPrefWidth(100);
-
-		
-
 
 		VBox vbox = new VBox(15);
 		vbox.getChildren().add(detail);
@@ -134,9 +128,8 @@ public class ListItem extends Application implements ActionListener{
 		mainGrid.setAlignment(Pos.BASELINE_LEFT);
 		mainGrid.setPadding(new Insets(10, 10, 10, 10));
 		mainGrid.add(topGrid, 0, 1);
-		
-		
-		//all component for scene2
+
+		// all component for scene2
 		// title grid
 		GridPane titleGrid = new GridPane();
 		titleGrid.setAlignment(Pos.CENTER);
@@ -189,12 +182,12 @@ public class ListItem extends Application implements ActionListener{
 		titleGrid.setPadding(new Insets(10, 10, 10, 10));
 		titleGrid.add(topGrid2, 0, 1);
 
-        //make 2 scenes from 2 panes
-        scene1 = new Scene(mainGrid, 550, 600);
-        scene2 = new Scene(titleGrid, 550, 600);
+		// make 2 scenes from 2 panes
+		scene1 = new Scene(mainGrid, 550, 600);
+		scene2 = new Scene(titleGrid, 550, 600);
 
-        primaryStage.setScene(scene1);
-        primaryStage.show();
+		primaryStage.setScene(scene1);
+		primaryStage.show();
 
 		// StackPane layout = new StackPane();
 		// layout.setStyle("-fx-padding: 10; -fx-background-color: cornsilk;
@@ -215,8 +208,6 @@ public class ListItem extends Application implements ActionListener{
 				});
 			}
 		}
-		
-
 
 		list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
@@ -235,17 +226,14 @@ public class ListItem extends Application implements ActionListener{
 						category.setText("Category: " + rs.getString("identifier"));
 						price.setText("Price: $" + rs.getDouble("price"));
 						desc.setText("Description: " + rs.getString("description"));
-						Image image2 = new Image(ListItem2.class.getResourceAsStream("resource/"+rs.getString("image")), 200, 200, false, false);
+						Image image2 = new Image(
+								ListItem2.class.getResourceAsStream("resource/" + rs.getString("image")), 200, 200,
+								false, false);
 						imv.setImage(image2);
-						
-						
+
 						id = rs.getInt("iid");
-						
 
-						
 					}
-					
-
 
 				} catch (ClassNotFoundException | SQLException e) {
 					// TODO Auto-generated catch block
@@ -260,17 +248,16 @@ public class ListItem extends Application implements ActionListener{
 				}
 			}
 		});
-		
-        btnOrder.setOnAction(event -> {
-        	int qty = Integer.valueOf((String)cboQty.getValue());
-        	getVariables(id, qty);
-        	System.out.println("food id: "+id+" quantity: "+qty);
-        	
-        	
-        	primaryStage.setScene(scene2);
-        });
-        
-        //Login part
+
+		btnOrder.setOnAction(event -> {
+			qty = Integer.valueOf((String) cboQty.getValue());
+			getVariables(id, qty);
+			System.out.println("food id: " + id + " quantity: " + qty);
+
+			primaryStage.setScene(scene2);
+		});
+
+		// Login part
 		btnRegister.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -296,24 +283,25 @@ public class ListItem extends Application implements ActionListener{
 				System.out.println(enteredfname);
 				System.out.println(enteredpw);
 
-				String fname = "";
+				String email = "";
 				String pw = "";
 				String st = "1";
 
-				String query = "select firstname, password, access_level FROM tblperson";
+				String query = "select cid, email, password, access_level FROM tblperson";
 				try {
 					Statement stmt = Connection.getConnection().createStatement();
 					ResultSet rs = stmt.executeQuery(query);
 
 					while (rs.next()) {
 						// Retrieve by column name
-						fname = rs.getString("firstname");
+						email = rs.getString("email");
 						pw = rs.getString("password");
 						st = rs.getString("access_level");
+						
 
-						if (enteredfname.equals(fname) && enteredpw.equals(pw) && st.equals("1")) {
+						if (enteredfname.equals(email) && enteredpw.equals(pw) && st.equals("1")) {
 							primaryStage.hide();
-							System.out.println(fname);
+							//System.out.println(email);
 							AdminDashboard dreg = new AdminDashboard();
 
 							try {
@@ -323,8 +311,7 @@ public class ListItem extends Application implements ActionListener{
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-						} 
-						else if (enteredfname.equals(fname) && enteredpw.equals(pw) && st.equals("2")) {
+						} else if (enteredfname.equals(email) && enteredpw.equals(pw) && st.equals("2")) {
 							primaryStage.hide();
 							ListItem2 dreg = new ListItem2();
 
@@ -342,7 +329,15 @@ public class ListItem extends Application implements ActionListener{
 							titleGrid.add(lblEror, 0, 10);
 
 						}
+						
+						cid = rs.getInt("cid");
+						System.out.println(id);
+						System.out.println(cid);
+						System.out.println(qty);
 					}
+					
+
+
 
 					rs.close();
 
@@ -365,34 +360,30 @@ public class ListItem extends Application implements ActionListener{
 
 			}
 		});
-        
 
 	}
-	
+
 	public int getVariables(int variable, int qty) {
-	    return variable;
+		return variable;
 	}
-	
-	protected int variable;
-	protected int id;
-	
-	public void ButtonClicked(ActionEvent e)
-    {
 
-    }
+	private int variable;
+	private int id;
+	private int cid; 
+	private int qty;
+
 
 	@Override
 	public void actionPerformed(java.awt.event.ActionEvent arg0) {
 		// TODO Auto-generated method stub
-        if (arg0.getSource()==btnOrder){
-            thestage.setScene(scene2);
-        	System.out.println("change scene");
-        }else{
-            thestage.setScene(scene1);
-        }
-		
+		if (arg0.getSource() == btnOrder) {
+			thestage.setScene(scene2);
+			System.out.println("change scene");
+		} else {
+			thestage.setScene(scene1);
+		}
+
 	}
 	
-
 
 }
