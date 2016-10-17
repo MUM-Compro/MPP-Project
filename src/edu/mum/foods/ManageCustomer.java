@@ -119,6 +119,22 @@ public class ManageCustomer extends Application {
 			}
 		});
 		
+		btnUpdateCustomer.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				primaryStage.hide();
+				UpdateCustomerInfo lreg = new UpdateCustomerInfo();
+
+				try {
+					lreg.start(UpdateCustomerInfo.classStage);
+
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		
 		
 		
 	}
