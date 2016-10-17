@@ -301,6 +301,19 @@ public class OrderCheckOut extends Application {
 		});
 		
 		
+		cboQty.setOnAction(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				double a;
+				a = Integer.parseInt(cboQty.getValue()) * price;
+				System.out.println(a);
+				amount.setText(String.valueOf(a));
+			}
+			
+		});
+		
 		
 		
 		
