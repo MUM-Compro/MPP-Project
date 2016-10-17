@@ -257,10 +257,10 @@ public class OrderCheckOut extends Application {
 					alert.showAndWait();
 					
 
-						CustomerDashboard dreg = new CustomerDashboard();
+						ListItem dreg = new ListItem();
 
 						try {
-							dreg.start(CustomerDashboard.customerdashstage);
+							dreg.start(ListItem.listitemStage);
 							primaryStage.close();
 
 						} catch (Exception e) {
