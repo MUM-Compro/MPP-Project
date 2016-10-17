@@ -88,7 +88,7 @@ public class AdminDashboard extends Application {
 				FoodAdminDashboard dreg = new FoodAdminDashboard();
 
 				try {
-					dreg.start(FoodAdminDashboard.fadStage);
+					dreg.start(FoodAdminDashboard.classStage);
 
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
