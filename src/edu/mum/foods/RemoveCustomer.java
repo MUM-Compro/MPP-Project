@@ -45,7 +45,11 @@ public class RemoveCustomer extends Application {
 
 		ObservableList<String> items = FXCollections.observableArrayList();
 
+
+		
 		String query = "SELECT * FROM tblperson where status='1'";
+		
+		
 
 		try {
 			Statement stmt = Connection.getConnection().createStatement();
@@ -153,6 +157,8 @@ public class RemoveCustomer extends Application {
 
 				String query = "SELECT * FROM tblperson WHERE status='1' AND firstname='" + newValue + "'";
 
+
+				
 				try {
 					Statement stmt = Connection.getConnection().createStatement();
 					ResultSet rs = stmt.executeQuery(query);
@@ -165,6 +171,8 @@ public class RemoveCustomer extends Application {
 						String ac=rs.getString("access_level");
 						if(ac.equals("1")){
 						acess.setText("Access Status: Admin");
+						
+						cid = rs.getInt("cid");
 						}
 						else{
 							acess.setText("Access Status: Customer");
@@ -187,7 +195,7 @@ public class RemoveCustomer extends Application {
 				btnDelete.setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
-						String query = "UPDATE tblperson SET Status='2' WHERE firstname='" + newValue + "'";
+						String query = "UPDATE tblperson SET status=2 WHERE cid=" + cid ;
 
 						try {
 
@@ -235,5 +243,9 @@ public class RemoveCustomer extends Application {
 		});
 		
 
+		
+
 	}
+	
+	private int cid;
 }

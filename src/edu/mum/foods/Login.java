@@ -152,10 +152,10 @@ public class Login extends Application {
 						} 
 						else if (enteredfname.equals(fname) && enteredpw.equals(pw) && st == 2) {
 							primaryStage.hide();
-							ListItem2 dreg = new ListItem2();
+							ListItem dreg = new ListItem();
 
 							try {
-								dreg.start(ListItem2.list2Stage);
+								dreg.start(ListItem.list2Stage);
 
 							} catch (Exception e) {
 								// TODO Auto-generated catch block
