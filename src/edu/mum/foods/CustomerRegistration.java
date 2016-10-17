@@ -43,7 +43,7 @@ public class CustomerRegistration extends Application {
 
 		primaryStage.setTitle("Register New User");
 
-		Label lblPageTitle = new Label("Register New User");
+		Label lblPageTitle = new Label("Register New Customer");
 		Label blankSpace = new Label("");
 		lblPageTitle.setAlignment(Pos.CENTER);
 
@@ -128,13 +128,10 @@ public class CustomerRegistration extends Application {
 		topGrid.add(lblSubmit, 0, 20);
 		topGrid.add(hbox, 0, 21);
 
-		Label lblLogin1 = new Label("");
-		topGrid.add(lblLogin1, 0, 22);
-		Label lblLogin = new Label("Already a Member?");
-		Button btnLogin = new Button("Login");
-		HBox hbox2 = new HBox(10);
-		hbox2.getChildren().addAll(lblLogin, btnLogin);
-		topGrid.add(hbox2, 0, 23);
+		topGrid.add(new Label(""), 0, 22);
+		topGrid.add(new Label(""), 0, 23);
+		Button btnBack = new Button("Back");
+		topGrid.add(btnBack, 0, 24);
 
 		// add all grid into main grid
 		GridPane mainGrid = new GridPane();
@@ -147,14 +144,14 @@ public class CustomerRegistration extends Application {
 		primaryStage.show();
 		AquaFx.style();
 
-		btnLogin.setOnAction(new EventHandler<ActionEvent>() {
+		btnBack.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				primaryStage.hide();
-				Login lreg = new Login();
+				ManageCustomer lreg = new ManageCustomer();
 
 				try {
-					lreg.start(Login.loginStage);
+					lreg.start(ManageCustomer.mcStage);
 
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
