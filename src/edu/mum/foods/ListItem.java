@@ -40,6 +40,8 @@ public class ListItem extends Application implements ActionListener {
 	public static void main(String[] arg) {
 		launch(arg);
 	}
+	
+	static Stage listStage = new Stage();
 
 	@Override
 	public void start(Stage primaryStage) throws ClassNotFoundException, SQLException {
