@@ -102,6 +102,22 @@ public class ManageCustomer extends Application {
 			}
 		});
 		
+		btnSerachCustomer.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				primaryStage.hide();
+				SearchCustomer lreg = new SearchCustomer();
+
+				try {
+					lreg.start(SearchCustomer.classStage);
+
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		
 		
 		btnAddCustomer.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
