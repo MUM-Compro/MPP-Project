@@ -61,7 +61,7 @@ public class OrderCheckOut extends Application {
 
 				System.out.println(rs.getInt("oid"));
 				oid = rs.getInt("oid");
-				cid = rs.getInt("o.sid");
+				cid = rs.getInt("sid");
 				
 				name = rs.getString("i.item_name");
 				qty = rs.getInt("o.qty");
