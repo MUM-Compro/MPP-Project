@@ -22,6 +22,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollBar;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -35,9 +36,9 @@ public class UpdateCustomerInfo extends Application {
 	public static void main(String[] arg) {
 		launch(arg);
 	}
-	
+
 	static Stage classStage = new Stage();
-	
+
 	@Override
 	public void start(Stage primaryStage) throws ClassNotFoundException, SQLException {
 
@@ -69,10 +70,10 @@ public class UpdateCustomerInfo extends Application {
 
 		primaryStage.setTitle("Food Menu");
 
-		Label lblPageTitle = new Label("Manage User");
+		Label lblPageTitle = new Label("Update User Info");
 		Label blankSpace = new Label("");
 		Label blankSpace2 = new Label("");
-		Label blankSpace3 = new Label("Select User to Delete it");
+		Label blankSpace3 = new Label("Select User to Update its Information");
 		Label blankSpace4 = new Label("");
 		lblPageTitle.setAlignment(Pos.BASELINE_LEFT);
 
@@ -85,28 +86,42 @@ public class UpdateCustomerInfo extends Application {
 		topGrid.add(blankSpace, 0, 1);
 		topGrid.add(blankSpace3, 0, 3);
 		topGrid.add(blankSpace4, 0, 4);
-		
+
 		topGrid.add(new Label(""), 0, 6);
 		Button btnBack = new Button("Back");
 		topGrid.add(btnBack, 0, 23);
 
-		Label fname = new Label("First Name: ");
-		Label lname = new Label("Last Name: ");
-		Label email = new Label("Email: ");
+		Label fname = new Label("First Name:");
+		Label lname = new Label("Last Name:");
+		Label email = new Label("Email:        ");
 		Label password = new Label("Password: ");
-		Label acess = new Label("Access Status: ");
+		// Label acess = new Label("Access Status: ");
+
+		TextField txtFname = new TextField("First Name  ");
+		TextField txtLname = new TextField("Last Name   ");
+		TextField txtEmail = new TextField("Email       ");
+		TextField txtPassword = new TextField("Password ");
+		// TextField txtAc = new TextField("Access Status: ");
+
+		HBox hbox1 = new HBox(20);
+		hbox1.getChildren().addAll(fname, txtFname);
+		HBox hbox2 = new HBox(20);
+		hbox2.getChildren().addAll(lname, txtLname);
+		HBox hbox3 = new HBox(20);
+		hbox3.getChildren().addAll(email, txtEmail);
+		HBox hbox4 = new HBox(20);
+		hbox4.getChildren().addAll(password, txtPassword);
 
 		System.out.println(this.getClass());
 
-		Button btnDelete = new Button("Delete");
+		Button btnUpdate = new Button("Update");
 
 		VBox vbox = new VBox(15);
-		vbox.getChildren().add(fname);
-		vbox.getChildren().add(lname);
-		vbox.getChildren().add(email);
-		vbox.getChildren().add(password);
-		vbox.getChildren().add(acess);
-		vbox.getChildren().add(btnDelete);
+		vbox.getChildren().add(hbox1);
+		vbox.getChildren().add(hbox2);
+		vbox.getChildren().add(hbox3);
+		vbox.getChildren().add(hbox4);
+		vbox.getChildren().add(btnUpdate);
 
 		HBox hbox = new HBox(25);
 		hbox.getChildren().add(list);
@@ -158,17 +173,16 @@ public class UpdateCustomerInfo extends Application {
 					ResultSet rs = stmt.executeQuery(query);
 
 					while (rs.next()) {
-						fname.setText("First Name: " + rs.getString("firstname"));
-						lname.setText("Last Name: " + rs.getString("lastname"));
-						email.setText("Email: " + rs.getString("email"));
-						password.setText("Password: " + rs.getString("password"));
-						String ac=rs.getString("access_level");
-						if(ac.equals("1")){
-						acess.setText("Access Status: Admin");
-						}
-						else{
-							acess.setText("Access Status: Customer");
-						}
+						txtFname.setText(rs.getString("firstname"));
+						txtLname.setText(rs.getString("lastname"));
+						txtEmail.setText(rs.getString("email"));
+						txtPassword.setText(rs.getString("password"));
+						// String ac = rs.getString("access_level");
+						// if (ac.equals("1")) {
+						// txtAc.setText("Access Status: Admin");
+						// } else {
+						// txtAc.setText("Access Status: Customer");
+						// }
 					}
 
 				} catch (ClassNotFoundException | SQLException e) {
@@ -177,30 +191,46 @@ public class UpdateCustomerInfo extends Application {
 				} finally {
 					try {
 						Connection.getConnection().close();
-						
+
 					} catch (ClassNotFoundException | SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
 
-				btnDelete.setOnAction(new EventHandler<ActionEvent>() {
+				btnUpdate.setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
-						String query = "UPDATE tblperson SET Status='2' WHERE firstname='" + newValue + "'";
+						String upFName = txtFname.getText();
+						String upLName = txtLname.getText();
+						String upEmail = txtEmail.getText();
+						String upPassword = txtPassword.getText();
+						String query = "UPDATE tblperson SET firstname='" + upFName + "' , lastname='" + upLName
+								+ "' , email='" + upEmail + "' , password='" + upPassword + "' WHERE firstname='"
+								+ newValue + "'";
 
 						try {
 
 							Statement stmt = Connection.getConnection().createStatement();
 							stmt.executeUpdate(query);
 							System.out.println("im here");
-							
+
 							Alert alert = new Alert(AlertType.INFORMATION);
 							alert.setTitle("Information Dialog");
 							alert.setHeaderText("Successful!");
-							alert.setContentText("You have successful remoed the user from our system!");
+							alert.setContentText("You have successful Updated the user info from our system!");
 							alert.showAndWait();
-							
+							primaryStage.hide();
+
+							try {
+								UpdateCustomerInfo upi = new UpdateCustomerInfo();
+								upi.start(RemoveCustomer.classStage);
+
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+
 						} catch (ClassNotFoundException | SQLException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -219,7 +249,7 @@ public class UpdateCustomerInfo extends Application {
 				});
 			}
 		});
-		
+
 		btnBack.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -233,7 +263,6 @@ public class UpdateCustomerInfo extends Application {
 				}
 			}
 		});
-		
 
 	}
 }

@@ -206,7 +206,7 @@ public class RemoveCustomer extends Application {
 							Alert alert = new Alert(AlertType.INFORMATION);
 							alert.setTitle("Information Dialog");
 							alert.setHeaderText("Successful!");
-							alert.setContentText("You have successful remoed the user from our system!");
+							alert.setContentText("You have successful removed the user from our system!");
 							alert.showAndWait();
 							
 							primaryStage.hide();
