@@ -75,6 +75,11 @@ public class ListItem extends Application implements ActionListener {
 		primaryStage.setTitle("Food Menu");
 
 		Label lblPageTitle = new Label("Food Menu");
+//		Label lblAdmin = new Label("Admin? ");
+		Button btnAdmin = new Button("Log In");
+		btnAdmin.setMinSize(60, 20);
+//		HBox hbox1= new HBox();
+//		hbox1.getChildren().addAll(lblAdmin, btnAdmin);
 		Label blankSpace = new Label("");
 		Label blankSpace2 = new Label("");
 		Label blankSpace3 = new Label("Select your favorite food, then click Order");
@@ -87,6 +92,7 @@ public class ListItem extends Application implements ActionListener {
 		topGrid.setHgap(10);
 
 		topGrid.add(lblPageTitle, 0, 0);
+		topGrid.add(btnAdmin, 1, 0);
 		topGrid.add(blankSpace, 0, 1);
 		topGrid.add(blankSpace3, 0, 3);
 		topGrid.add(blankSpace4, 0, 4);
@@ -271,6 +277,22 @@ public class ListItem extends Application implements ActionListener {
 
 				try {
 					reg.start(Register.classStage);
+
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		btnAdmin.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				primaryStage.hide();
+				Login reg = new Login();
+
+				try {
+					reg.start(Login.loginStage);
 
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
