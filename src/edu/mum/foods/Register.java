@@ -178,6 +178,16 @@ public class Register extends Application {
 					alert.setContentText("You have successful register account with our system!");
 
 					alert.showAndWait();
+					primaryStage.hide();
+					Login lreg = new Login();
+
+					try {
+						lreg.start(Login.loginStage);
+
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 
 				} catch (ClassNotFoundException | SQLException e) {
 					// TODO Auto-generated catch block
