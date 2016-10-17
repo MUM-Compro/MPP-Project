@@ -19,16 +19,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollBar;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 public class ListItem extends Application {
@@ -56,6 +51,7 @@ public class ListItem extends Application {
 				items.addAll(rs.getString("item_name"));
 
 				list.setItems(items);
+
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {
@@ -83,25 +79,31 @@ public class ListItem extends Application {
 		topGrid.add(blankSpace, 0, 1);
 		topGrid.add(blankSpace3, 0, 3);
 		topGrid.add(blankSpace4, 0, 4);
-		
-		Label detail = new Label("Detail: ");
+
+		Label detail = new Label("Detail ");
 		Label name = new Label("Name: ");
 		Label category = new Label("Category: ");
 		Label price = new Label("Price: ");
 		Label desc = new Label("Description: ");
-		
+
+		ImageView imv = new ImageView();
+		Image image2 = new Image(ListItem2.class.getResourceAsStream("resource/food.jpg"), 200, 200, false, false);
+		imv.setImage(image2);
+		imv.autosize();
+
+		System.out.println(this.getClass());
+
 		Button btnOrder = new Button("Order");
-		
+
 		VBox vbox = new VBox(15);
 		vbox.getChildren().add(detail);
 		vbox.getChildren().add(name);
 		vbox.getChildren().add(category);
 		vbox.getChildren().add(price);
 		vbox.getChildren().add(desc);
+		vbox.getChildren().add(imv);
 		vbox.getChildren().add(btnOrder);
-		
-		
-		
+
 		HBox hbox = new HBox(25);
 		hbox.getChildren().add(list);
 		hbox.getChildren().add(vbox);
@@ -138,25 +140,37 @@ public class ListItem extends Application {
 				});
 			}
 		}
+		
+
 
 		list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				System.out.println(
 						"ListView selection changed from oldValue = " + oldValue + " to newValue = " + newValue);
-				
-				String query = "SELECT * FROM tblItems WHERE item_name='"+newValue+"'";
+
+				String query = "SELECT * FROM tblItems WHERE item_name='" + newValue + "'";
 
 				try {
 					Statement stmt = Connection.getConnection().createStatement();
 					ResultSet rs = stmt.executeQuery(query);
 
 					while (rs.next()) {
-						name.setText("Name: "+rs.getString("item_name"));
-						category.setText("Category: "+ rs.getString("identifier"));
-						price.setText("Price: " + rs.getDouble("price"));
+						name.setText("Name: " + rs.getString("item_name"));
+						category.setText("Category: " + rs.getString("identifier"));
+						price.setText("Price: $" + rs.getDouble("price"));
 						desc.setText("Description: " + rs.getString("description"));
+						Image image2 = new Image(ListItem2.class.getResourceAsStream("resource/"+rs.getString("image")), 200, 200, false, false);
+						imv.setImage(image2);
+						
+						
+						id = rs.getInt("iid");
+						
+
+						
 					}
+					
+
 
 				} catch (ClassNotFoundException | SQLException e) {
 					// TODO Auto-generated catch block
@@ -171,6 +185,19 @@ public class ListItem extends Application {
 				}
 			}
 		});
+		
+        btnOrder.setOnAction(event -> {
+        	initVariables(id);
+        	System.out.println(id);
+        });
+
 	}
+	
+	public void initVariables(int variable) {
+	    this.variable = variable;
+	}
+	
+	protected int variable;
+	protected int id;
 
 }
