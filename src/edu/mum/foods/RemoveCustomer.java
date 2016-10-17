@@ -85,6 +85,10 @@ public class RemoveCustomer extends Application {
 		topGrid.add(blankSpace, 0, 1);
 		topGrid.add(blankSpace3, 0, 3);
 		topGrid.add(blankSpace4, 0, 4);
+		
+		topGrid.add(new Label(""), 0, 6);
+		Button btnBack = new Button("Back");
+		topGrid.add(btnBack, 0, 23);
 
 		Label fname = new Label("First Name: ");
 		Label lname = new Label("Last Name: ");
@@ -215,6 +219,21 @@ public class RemoveCustomer extends Application {
 				});
 			}
 		});
+		
+		btnBack.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				primaryStage.hide();
+				ManageCustomer lreg = new ManageCustomer();
+
+				try {
+					lreg.start(ManageCustomer.mcStage);
+				} catch (Exception e) {
+
+				}
+			}
+		});
+		
 
 	}
 }
