@@ -232,6 +232,7 @@ public class ListItem extends Application implements ActionListener {
 						imv.setImage(image2);
 
 						id = rs.getInt("iid");
+						p = rs.getDouble("price");
 
 					}
 
@@ -301,11 +302,13 @@ public class ListItem extends Application implements ActionListener {
 
 						if (enteredfname.equals(email) && enteredpw.equals(pw) && st.equals("1")) {
 							primaryStage.hide();
+												
+							
 							//System.out.println(email);
-							AdminDashboard dreg = new AdminDashboard();
+							CheckOut dreg = new CheckOut();
 
 							try {
-								dreg.start(AdminDashboard.classStage);
+								dreg.start(CheckOut.classStage);
 
 							} catch (Exception e) {
 								// TODO Auto-generated catch block
@@ -313,10 +316,10 @@ public class ListItem extends Application implements ActionListener {
 							}
 						} else if (enteredfname.equals(email) && enteredpw.equals(pw) && st.equals("2")) {
 							primaryStage.hide();
-							ListItem2 dreg = new ListItem2();
+							CheckOut dreg = new CheckOut();
 
 							try {
-								dreg.start(ListItem2.list2Stage);
+								dreg.start(CheckOut.classStage);
 
 							} catch (Exception e) {
 								// TODO Auto-generated catch block
@@ -330,10 +333,15 @@ public class ListItem extends Application implements ActionListener {
 
 						}
 						
+
+
+						
+
 						cid = rs.getInt("cid");
 						System.out.println(id);
 						System.out.println(cid);
 						System.out.println(qty);
+						System.out.println(p);
 					}
 					
 
@@ -345,14 +353,25 @@ public class ListItem extends Application implements ActionListener {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} finally {
+					//insert order into table
+					String sql = "INSERT INTO tblOrder (order_status, qty, price, sid, iid) VALUES('New'," + qty+","+p+"," + cid+","+id+")";
+
 					try {
-						Connection.getConnection().close();
-					} catch (ClassNotFoundException e) {
+						Statement s = Connection.getConnection().createStatement();
+						s.executeUpdate(sql);
+
+
+
+					} catch (ClassNotFoundException | SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					} finally {
+						try {
+							Connection.getConnection().close();
+						} catch (ClassNotFoundException | SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 				}
 
@@ -371,6 +390,7 @@ public class ListItem extends Application implements ActionListener {
 	private int id;
 	private int cid; 
 	private int qty;
+	private double p;
 
 
 	@Override

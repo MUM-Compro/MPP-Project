@@ -28,6 +28,8 @@ import javafx.stage.Stage;
 import edu.mum.foods.*;
 
 public class CheckOut extends Application {
+	
+	static Stage classStage = new Stage();
 
 	public static void main(String[] arg) {
 		launch(arg);
@@ -41,18 +43,17 @@ public class CheckOut extends Application {
 		Label lblPageTitle = new Label("Check Out");
 		Label blankSpace = new Label("");
 		lblPageTitle.setAlignment(Pos.CENTER);
-		
-		
-		//get the latest order (temporary)
-		
-		String query = "SELECT * FROM tblOrder ORDER BY DESC";
+
+		// get the latest order (temporary)
+
+		String query = "SELECT * FROM tblOrder ORDER BY oid";
 
 		try {
 			Statement stmt = Connection.getConnection().createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
-				
+
 				System.out.println(rs.getInt("oid"));
 
 			}
@@ -63,10 +64,7 @@ public class CheckOut extends Application {
 		} finally {
 			Connection.getConnection().close();
 		}
-		
-		
-		
-		
+
 		// top grid
 		GridPane topGrid = new GridPane();
 		topGrid.setAlignment(Pos.BASELINE_LEFT);
@@ -74,8 +72,6 @@ public class CheckOut extends Application {
 
 		topGrid.add(lblPageTitle, 0, 0);
 		topGrid.add(blankSpace, 0, 1);
-
-
 
 		// add all grid into main grid
 		GridPane mainGrid = new GridPane();
