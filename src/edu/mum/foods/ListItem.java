@@ -94,7 +94,7 @@ public class ListItem extends Application implements ActionListener {
 		Label desc = new Label("Description: ");
 
 		ImageView imv = new ImageView();
-		Image image2 = new Image(ListItem.class.getResourceAsStream("resource/food.jpg"), 200, 200, false, false);
+		Image image2 = new Image(ListItem2.class.getResourceAsStream("resource/food.jpg"), 200, 200, false, false);
 		imv.setImage(image2);
 		imv.autosize();
 

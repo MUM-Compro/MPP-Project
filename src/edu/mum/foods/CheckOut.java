@@ -1,7 +1,9 @@
 package edu.mum.foods;
 
 import java.io.File;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import com.aquafx_project.AquaFx;
 
@@ -39,6 +41,28 @@ public class CheckOut extends Application {
 		Label lblPageTitle = new Label("Check Out");
 		Label blankSpace = new Label("");
 		lblPageTitle.setAlignment(Pos.CENTER);
+		
+		
+		//get the latest order (temporary)
+		
+		String query = "SELECT * FROM tblOrder ORDER BY DESC";
+
+		try {
+			Statement stmt = Connection.getConnection().createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				
+				System.out.println(rs.getInt("oid"));
+
+			}
+
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			Connection.getConnection().close();
+		}
 		
 		
 		
