@@ -97,11 +97,18 @@ public class AddFood extends Application {
 		topGrid.add(lblImage, 0, 10);
 		topGrid.add(btnImageChooser, 0, 11);
 		
+		
+		
 
 
 		
 		Label imagepath = new Label("");
-		topGrid.add(imagepath, 0, 19);
+		topGrid.add(imagepath, 0, 12);
+		
+		
+		topGrid.add(new Label(""), 0, 29);
+		Button btnBack = new Button("Back");
+		topGrid.add(btnBack, 0, 30);
 
 		btnImageChooser.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -178,6 +185,20 @@ public class AddFood extends Application {
 					System.out.println("Failed");
 				}
 
+			}
+		});
+		
+		btnBack.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				primaryStage.hide();
+				ListItem lreg = new ListItem();
+
+				try {
+					lreg.start(ListItem.listStage);
+				} catch (Exception e) {
+
+				}
 			}
 		});
 
