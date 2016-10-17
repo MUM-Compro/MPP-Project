@@ -1,5 +1,6 @@
 package edu.mum.foods;
 
+import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -11,14 +12,18 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollBar;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -26,7 +31,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class ListItem extends Application {
+public class ListItem extends Application implements ActionListener{
+	
+	Button btnOrder = new Button("Order");
+	Scene scene1, scene2;
+    Stage thestage;
 
 	public static void main(String[] arg) {
 		launch(arg);
@@ -92,8 +101,15 @@ public class ListItem extends Application {
 		imv.autosize();
 
 		System.out.println(this.getClass());
+		
+		Label lblQty = new Label("Quality: ");
+		ComboBox<String> cboQty = new ComboBox<String>();
+		cboQty.getItems().addAll("1", "2", "3", "4", "5");
+		cboQty.setValue("1");
+		cboQty.setPrefWidth(100);
 
-		Button btnOrder = new Button("Order");
+		
+
 
 		VBox vbox = new VBox(15);
 		vbox.getChildren().add(detail);
@@ -102,6 +118,8 @@ public class ListItem extends Application {
 		vbox.getChildren().add(price);
 		vbox.getChildren().add(desc);
 		vbox.getChildren().add(imv);
+		vbox.getChildren().add(lblQty);
+		vbox.getChildren().add(cboQty);
 		vbox.getChildren().add(btnOrder);
 
 		HBox hbox = new HBox(25);
@@ -115,11 +133,67 @@ public class ListItem extends Application {
 		mainGrid.setAlignment(Pos.BASELINE_LEFT);
 		mainGrid.setPadding(new Insets(10, 10, 10, 10));
 		mainGrid.add(topGrid, 0, 1);
+		
+		
+		//all component for scene2
+		// title grid
+		GridPane titleGrid = new GridPane();
+		titleGrid.setAlignment(Pos.CENTER);
+		titleGrid.setHgap(10);
 
-		Scene scene = new Scene(mainGrid, 550, 500);
-		primaryStage.setScene(scene);
-		primaryStage.show();
-		AquaFx.style();
+		// top grid
+		GridPane topGrid2 = new GridPane();
+		titleGrid.setAlignment(Pos.CENTER);
+		titleGrid.setHgap(10);
+
+		Label lblEmail = new Label("Email");
+		TextField txtEmail = new TextField();
+		txtEmail.setPrefWidth(300);
+		titleGrid.add(lblEmail, 0, 0);
+		titleGrid.add(txtEmail, 0, 1);
+
+		Label lblPassword = new Label("Password");
+		TextField txtPassword = new TextField();
+		txtPassword.setPrefWidth(300);
+		titleGrid.add(lblPassword, 0, 2);
+		titleGrid.add(txtPassword, 0, 3);
+
+		Label lblLogin = new Label("");
+		Button btnLogin = new Button("Login");
+		Button btnRegister = new Button("Register");
+
+		// Image imageRegister = new
+		// Image(getClass().getResourceAsStream("add-user.png"));
+		// btnSubmit.setGraphic(new ImageView(imageRegister));
+		btnLogin.setId("btnRegister");
+		btnRegister.setId("btnReset");
+
+		HBox hbox2 = new HBox(20);
+		hbox2.getChildren().addAll(btnLogin, btnRegister);
+		titleGrid.add(lblLogin, 0, 4);
+		titleGrid.add(hbox2, 0, 5);
+
+		// Label lblSubmit = new Label("");
+		// Button btnSubmit = new Button("Login");
+		// titleGrid.add(lblSubmit, 0, 10);
+		// titleGrid.add(btnSubmit, 0, 11);
+		//
+		// Label lblRegister = new Label("");
+		// Button btnRegister = new Button("Register");
+		// titleGrid.add(lblRegister, 1, 10);
+		// titleGrid.add(btnRegister, 1, 11);
+
+		// add all grid into main grid
+		titleGrid.setAlignment(Pos.CENTER);
+		titleGrid.setPadding(new Insets(10, 10, 10, 10));
+		titleGrid.add(topGrid2, 0, 1);
+
+        //make 2 scenes from 2 panes
+        scene1 = new Scene(mainGrid, 550, 600);
+        scene2 = new Scene(titleGrid, 550, 600);
+
+        primaryStage.setScene(scene1);
+        primaryStage.show();
 
 		// StackPane layout = new StackPane();
 		// layout.setStyle("-fx-padding: 10; -fx-background-color: cornsilk;
@@ -187,17 +261,41 @@ public class ListItem extends Application {
 		});
 		
         btnOrder.setOnAction(event -> {
-        	initVariables(id);
-        	System.out.println(id);
+        	int qty = Integer.valueOf((String)cboQty.getValue());
+        	getVariables(id, qty);
+        	System.out.println("food id: "+id+" quantity: "+qty);
+        	
+        	
+        	primaryStage.setScene(scene2);
         });
+        
 
 	}
 	
-	public void initVariables(int variable) {
-	    this.variable = variable;
+	public int getVariables(int variable, int qty) {
+	    return variable;
 	}
 	
 	protected int variable;
 	protected int id;
+	
+	public void ButtonClicked(ActionEvent e)
+    {
+
+    }
+
+	@Override
+	public void actionPerformed(java.awt.event.ActionEvent arg0) {
+		// TODO Auto-generated method stub
+        if (arg0.getSource()==btnOrder){
+            thestage.setScene(scene2);
+        	System.out.println("change scene");
+        }else{
+            thestage.setScene(scene1);
+        }
+		
+	}
+	
+
 
 }
