@@ -27,7 +27,7 @@ public class FoodAdminDashboard extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-	static Stage fadStage = new Stage();
+	static Stage classStage = new Stage();
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -84,6 +84,73 @@ public class FoodAdminDashboard extends Application {
 				}
 			}
 		});
+		btnAddFood.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				primaryStage.hide();
+				AddFoodItem lreg = new AddFoodItem();
+
+				try {
+					lreg.start(AddFoodItem.classStage);
+
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		btnRemoveFood.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				primaryStage.hide();
+				RemoveFood lreg = new RemoveFood();
+
+				try {
+					lreg.start(RemoveFood.classStage);
+
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		
+		btnUpdateFood.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				primaryStage.hide();
+				UpdateFoodDetail lreg = new UpdateFoodDetail();
+
+				try {
+					lreg.start(UpdateFoodDetail.classStage);
+
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		btnSerachFood.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				primaryStage.hide();
+				SearchFood lreg = new SearchFood();
+
+				try {
+					lreg.start(SearchFood.classStage);
+
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		
+		
 	}
 
 }
