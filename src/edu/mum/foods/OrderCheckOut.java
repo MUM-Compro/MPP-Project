@@ -61,6 +61,7 @@ public class OrderCheckOut extends Application {
 
 				System.out.println(rs.getInt("oid"));
 				oid = rs.getInt("oid");
+				cid = rs.getInt("o.sid");
 				
 				name = rs.getString("i.item_name");
 				qty = rs.getInt("o.qty");
@@ -148,6 +149,30 @@ public class OrderCheckOut extends Application {
 		TextField txtStatus = new TextField();
 		TextField txtLongitude = new TextField();
 		TextField txtLatitude = new TextField();
+		
+		// get the latest order (temporary)
+
+		String query2 = "SELECT * FROM tblPerson WHERE cid="+cid;
+		System.out.println(cid);
+
+		try {
+			Statement stmt = Connection.getConnection().createStatement();
+			ResultSet rs = stmt.executeQuery(query2);
+
+			while (rs.next()) {
+
+				txtCustomerName.setText(rs.getString("firstname") + " " + rs.getString("lastname"));
+				txtAddress.setText(rs.getString("address"));
+				txtPhone.setText(rs.getString("contact_number"));
+
+			}
+
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			Connection.getConnection().close();
+		}
 		
 		//customer delivery address
 		Label blankSpace5 = new Label("");
