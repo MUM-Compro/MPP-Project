@@ -169,7 +169,7 @@ public class Register extends Application {
 				try {
 					RegisterUser.getRegister(txtFirstname.getText(), txtLastname.getText(), txtEmail.getText(),
 							txtPassword.getText(), cboGender.getValue(), txtAddress.getText(),
-							txtContactNumber.getText(), "1");
+							txtContactNumber.getText(), "2");
 					System.out.println("Inserted");
 
 					Alert alert = new Alert(AlertType.INFORMATION);
