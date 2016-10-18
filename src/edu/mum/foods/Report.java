@@ -8,16 +8,23 @@ import java.sql.Statement;
 import com.aquafx_project.AquaFx;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -40,40 +47,28 @@ public class Report extends Application {
 	@Override
 	public void start(Stage primaryStage) throws ClassNotFoundException, SQLException {
 
-		primaryStage.setTitle("Report Generation");
+		ListView<String> list = new ListView<>();
 
-		Label lblPageTitle = new Label("Report Generation");
-		Label blankSpace = new Label("");
-		Label lblItem = new Label("Items");		
-		Label blankSpace2 = new Label("");
-		lblPageTitle.setAlignment(Pos.CENTER);
+		ObservableList<String> items = FXCollections.observableArrayList();
 
-		// get the latest order (temporary)
 
-		String query = "SELECT * FROM tblOrder AS o INNER JOIN tblItems AS i "
-				+ "WHERE o.iid = i.iid ORDER BY o.oid DESC LIMIT 1";
+		
+		String query = "SELECT * FROM tblperson where status='1'";
+		
+		
 
 		try {
 			Statement stmt = Connection.getConnection().createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
+				System.out.println(rs.getString("firstname"));
 
-				System.out.println(rs.getInt("oid"));
-				oid = rs.getInt("oid");
-				cid = rs.getInt("o.sid");
-				
-				name = rs.getString("i.item_name");
-				qty = rs.getInt("o.qty");
-				price = rs.getDouble("o.price");
-				amount = qty * price;
-				
+				items.addAll(rs.getString("firstname"));
+
+				list.setItems(items);
 
 			}
-			
-			
-			
-			
 
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
@@ -81,6 +76,15 @@ public class Report extends Application {
 		} finally {
 			Connection.getConnection().close();
 		}
+
+		primaryStage.setTitle("Food Management System");
+
+		Label lblPageTitle = new Label("See Report");
+		Label blankSpace = new Label("");
+		Label blankSpace2 = new Label("");
+		Label blankSpace3 = new Label("Select Report to view");
+		Label blankSpace4 = new Label("");
+		lblPageTitle.setAlignment(Pos.BASELINE_LEFT);
 
 		// top grid
 		GridPane topGrid = new GridPane();
@@ -89,185 +93,97 @@ public class Report extends Application {
 
 		topGrid.add(lblPageTitle, 0, 0);
 		topGrid.add(blankSpace, 0, 1);
-		topGrid.add(lblItem, 0, 2);
-		topGrid.add(blankSpace2, 0, 3);
-		
-		
-		HBox hbox = new HBox(120);
-		Label name = new Label("Name");
-		Label qty = new Label("Qty");
-		Label uprice = new Label ("Unit Price");
-		Label amout = new Label("Amount");
-		hbox.getChildren().add(name);
-		hbox.getChildren().add(qty);
-		hbox.getChildren().add(uprice);
-		hbox.getChildren().add(amout);
-		
-		topGrid.add(hbox, 0, 4);
-		
-		HBox hbox2 = new HBox(25);
-		TextField n = new TextField(this.name);
-		ComboBox<String> cboQty = new ComboBox<String>();
-		cboQty.getItems().addAll("1", "2", "3", "4", "5");
-		cboQty.setValue(String.valueOf(this.qty));
-		cboQty.setPrefWidth(100);
-		
-		TextField unit_price = new TextField();
-		unit_price.setText(String.valueOf(price));
-		
-		TextField amount = new TextField();
-		amount.setText(String.valueOf(this.amount));
-		hbox2.getChildren().add(n);
-		hbox2.getChildren().add(cboQty);
-		hbox2.getChildren().add(unit_price);
-		hbox2.getChildren().add(amount);
-		
-		topGrid.add(hbox2, 0, 5);
-		
-		Label blankSpace4 = new Label("");
+		topGrid.add(blankSpace3, 0, 3);
 		topGrid.add(blankSpace4, 0, 4);
 		
-		//declare some components for customer address and delivery
-		Label customerinfo = new Label("Customer Delivery Info");
-		Label lblCustomerName = new Label("Name");
-		Label lblAddress = new Label("Address");
-		Label lblCity = new Label("City");
-		Label lblState = new Label("State");
-		Label lblZip = new Label("Zip");
-		Label lblPhone = new Label("Phone");
-		Label lblStatus = new Label("Status");
-		Label lblTracking = new Label("Tracking Purpose (Optional)");
-		Label lblLongtitude = new Label("Longitude");
-		Label lblLatitude = new Label("Latitude");
-		TextField txtCustomerName = new TextField();
-		txtCustomerName.setMaxWidth(300);
-		TextField txtAddress = new TextField();
-		TextField txtCity = new TextField();
-		TextField txtState = new TextField();
-		TextField txtZip = new TextField();
-		TextField txtPhone = new TextField();
-		TextField txtStatus = new TextField();
-		TextField txtLongitude = new TextField();
-		TextField txtLatitude = new TextField();
-		
-		// get the latest order (temporary)
+		topGrid.add(new Label(""), 0, 6);
+		Button btnBack = new Button("Back");
+		topGrid.add(btnBack, 0, 23);
 
-		String query2 = "SELECT * FROM tblPerson WHERE cid="+cid;
-		System.out.println(cid);
+		Label fname = new Label("First Name: ");
+		Label lname = new Label("Last Name: ");
+		Label email = new Label("Email: ");
+		Label password = new Label("Password: ");
+		Label acess = new Label("Access Status: ");
 
-		try {
-			Statement stmt = Connection.getConnection().createStatement();
-			ResultSet rs = stmt.executeQuery(query2);
+		System.out.println(this.getClass());
 
-			while (rs.next()) {
+		Button btnDelete = new Button("Delete");
 
-				txtCustomerName.setText(rs.getString("firstname") + " " + rs.getString("lastname"));
-				txtAddress.setText(rs.getString("address"));
-				txtPhone.setText(rs.getString("contact_number"));
+		VBox vbox = new VBox(15);
+		vbox.getChildren().add(fname);
+		vbox.getChildren().add(lname);
+		vbox.getChildren().add(email);
+		vbox.getChildren().add(password);
+		vbox.getChildren().add(acess);
+		vbox.getChildren().add(btnDelete);
 
+		HBox hbox = new HBox(25);
+		hbox.getChildren().add(list);
+		hbox.getChildren().add(vbox);
+
+		topGrid.add(hbox, 0, 5);
+
+		// add all grid into main grid
+		GridPane mainGrid = new GridPane();
+		mainGrid.setAlignment(Pos.BASELINE_LEFT);
+		mainGrid.setPadding(new Insets(10, 10, 10, 10));
+		mainGrid.add(topGrid, 0, 1);
+
+		Scene scene = new Scene(mainGrid, 550, 500);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+		AquaFx.style();
+
+		// StackPane layout = new StackPane();
+		// layout.setStyle("-fx-padding: 10; -fx-background-color: cornsilk;
+		// -fx-font-size: 25px;");
+		// layout.getChildren().add(listview);
+		// primaryStage.setScene(new Scene(layout, 600, 550));
+		// primaryStage.show();
+
+		for (Node node : list.lookupAll(".scroll-bar")) {
+			if (node instanceof ScrollBar) {
+				final ScrollBar bar = (ScrollBar) node;
+				bar.valueProperty().addListener(new ChangeListener<Number>() {
+					@Override
+					public void changed(ObservableValue<? extends Number> value, Number oldValue, Number newValue) {
+						System.out.println(bar.getOrientation() + " " + newValue);
+
+					}
+				});
 			}
-
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			Connection.getConnection().close();
 		}
-		
-		//customer delivery address
-		Label blankSpace5 = new Label("");
-		topGrid.add(blankSpace5, 0, 6);
-		Label blankSpace6 = new Label("");
-		topGrid.add(customerinfo, 0, 7);
-		topGrid.add(blankSpace6, 0, 8);
-		topGrid.add(lblCustomerName, 0, 9);
-		topGrid.add(txtCustomerName, 0, 10);
-		topGrid.add(lblAddress, 0, 11);
-		topGrid.add(txtAddress, 0, 12);
-	
-		HBox addressHBox = new HBox(25);
-		VBox addressVBox1 = new VBox();
-		addressVBox1.getChildren().add(lblCity);
-		addressVBox1.getChildren().add(txtCity);
-		addressVBox1.getChildren().add(lblPhone);
-		addressVBox1.getChildren().add(txtPhone);
-		VBox addressVBox2 = new VBox();
-		addressVBox2.getChildren().add(lblState);
-		addressVBox2.getChildren().add(txtState);
-		VBox addressVBox3 = new VBox();
-		addressVBox3.getChildren().add(lblZip);
-		addressVBox3.getChildren().add(txtZip);
-		addressHBox.getChildren().add(addressVBox1);
-		addressHBox.getChildren().add(addressVBox2);
-		addressHBox.getChildren().add(addressVBox3);
-		topGrid.add(addressHBox, 0, 13);
-		
-		
-		//customer input long and lat ***this is optional but good if they input
-		Label blankSpace7 = new Label("");
-		topGrid.add(blankSpace7, 0, 14);
-		topGrid.add(lblTracking, 0, 15);
-		Label blankSpace8 = new Label("");
-		topGrid.add(blankSpace8, 0, 16);
 
-		HBox tracking = new HBox (25);
-		VBox trackingvbox = new VBox(10);
-		trackingvbox.getChildren().add(lblLongtitude);
-		trackingvbox.getChildren().add(lblLatitude);
-		VBox trackingvboxtext = new VBox(10);
-		trackingvboxtext.getChildren().add(txtLongitude);
-		trackingvboxtext.getChildren().add(txtLatitude);
-		tracking.getChildren().add(trackingvbox);
-		tracking.getChildren().add(trackingvboxtext);
-		topGrid.add(tracking, 0, 18);
-		
-		Label blankSpac10 = new Label("");
-		topGrid.add(blankSpac10, 0, 19);
-		
-		
-		
-		//checkout part
-		HBox hbox3 = new HBox(25);
-		Button checkout = new Button("Check Out");
-		Button cancel = new Button("Cancel");
-		hbox3.getChildren().add(checkout);
-		hbox3.getChildren().add(cancel);
-		
-		topGrid.add(hbox3, 0, 50);
-		
-		//check out button event on click
-		checkout.setOnAction(new EventHandler<ActionEvent>() {
+		list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
-			public void handle(ActionEvent event) {
-				
-				String query = "INSERT INTO tblDelivery (oid, cname, address, city, state, zip, phone, status, longtitude, latitude) VALUES("+oid+",'"+txtCustomerName.getText()+"'"+
-						",'"+txtAddress.getText()+"','"+txtCity.getText()+"','"+txtState.getText()+"','"+
-						txtZip.getText()+"','"+txtPhone.getText()+"','New','"+txtLongitude.getText()+"','"+
-						txtLatitude.getText()+"')";
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				System.out.println(
+						"ListView selection changed from oldValue = " + oldValue + " to newValue = " + newValue);
 
+				String query = "SELECT * FROM tblperson WHERE status='1' AND firstname='" + newValue + "'";
+
+
+				
 				try {
 					Statement stmt = Connection.getConnection().createStatement();
-					stmt.executeUpdate(query);
-					
-					Alert alert = new Alert(AlertType.INFORMATION);
-					alert.setTitle("Information Dialog");
-					alert.setHeaderText("Successful!");
-					alert.setContentText("You have successful order item with us, check dashboard to track your order!");
+					ResultSet rs = stmt.executeQuery(query);
 
-					alert.showAndWait();
-					
-
-						CustomerDashboard dreg = new CustomerDashboard();
-
-						try {
-							dreg.start(CustomerDashboard.customerdashstage);
-							primaryStage.close();
-
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+					while (rs.next()) {
+						fname.setText("First Name: " + rs.getString("firstname"));
+						lname.setText("Last Name: " + rs.getString("lastname"));
+						email.setText("Email: " + rs.getString("email"));
+						password.setText("Password: " + rs.getString("password"));
+						String ac=rs.getString("access_level");
+						if(ac.equals("1")){
+						acess.setText("Access Status: Admin");
+						
+						cid = rs.getInt("cid");
 						}
-
+						else{
+							acess.setText("Access Status: Customer");
+						}
+					}
 
 				} catch (ClassNotFoundException | SQLException e) {
 					// TODO Auto-generated catch block
@@ -275,53 +191,79 @@ public class Report extends Application {
 				} finally {
 					try {
 						Connection.getConnection().close();
+						
 					} catch (ClassNotFoundException | SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
+
+				btnDelete.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						String query = "UPDATE tblperson SET status=2 WHERE cid=" + cid ;
+
+						try {
+
+							Statement stmt = Connection.getConnection().createStatement();
+							stmt.executeUpdate(query);
+							System.out.println("im here");
+							
+							Alert alert = new Alert(AlertType.INFORMATION);
+							alert.setTitle("Information Dialog");
+							alert.setHeaderText("Successful!");
+							alert.setContentText("You have successful removed the user from our system!");
+							alert.showAndWait();
+							
+							primaryStage.hide();
+							
+
+							try {
+								RemoveCustomer r= new RemoveCustomer();
+								r.start(RemoveCustomer.classStage);
+
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							
+						} catch (ClassNotFoundException | SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} finally {
+							try {
+								Connection.getConnection().close();
+							} catch (ClassNotFoundException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					}
+				});
 			}
 		});
 		
-		//cancel button event on click
-		cancel.setOnAction(new EventHandler<ActionEvent>() {
+		btnBack.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				ListItem dreg = new ListItem();
+				primaryStage.hide();
+				ManageCustomer lreg = new ManageCustomer();
 
 				try {
-					dreg.start(ListItem.listitemStage);
-					primaryStage.close();
-
+					lreg.start(ManageCustomer.mcStage);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+
 				}
 			}
 		});
 		
-		
-		
-		
+
 		
 
-		// add all grid into main grid
-		GridPane mainGrid = new GridPane();
-		mainGrid.setAlignment(Pos.TOP_CENTER);
-		mainGrid.setPadding(new Insets(10, 10, 10, 10));
-		mainGrid.add(topGrid, 0, 1);
-
-		Scene scene = new Scene(mainGrid, 550, 600);
-		primaryStage.setScene(scene);
-		primaryStage.show();
-		AquaFx.style();
 	}
 	
-	private String name;
-	private int qty;
-	private double price;
 	private int cid;
-	private double amount;
-	private int oid;
-
 }
