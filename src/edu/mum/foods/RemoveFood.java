@@ -45,7 +45,7 @@ public class RemoveFood extends Application {
 
 		ObservableList<String> items = FXCollections.observableArrayList();
 
-		String query = "SELECT * FROM tblitems where status='1'";
+		String query = "SELECT * FROM tblitems where status='0'";
 
 		try {
 			Statement stmt = Connection.getConnection().createStatement();
@@ -149,7 +149,7 @@ public class RemoveFood extends Application {
 				System.out.println(
 						"ListView selection changed from oldValue = " + oldValue + " to newValue = " + newValue);
 
-				String query = "SELECT * FROM tblitems WHERE status='1' AND item_name='" + newValue + "'";
+				String query = "SELECT * FROM tblitems WHERE status='0' AND item_name='" + newValue + "'";
 
 				try {
 					Statement stmt = Connection.getConnection().createStatement();
@@ -181,7 +181,7 @@ public class RemoveFood extends Application {
 				btnDelete.setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
-						String query = "UPDATE tblitems SET status=2 WHERE iid=" + iid;
+						String query = "UPDATE tblitems SET status=1 WHERE iid=" + iid;
 
 						try {
 
@@ -198,8 +198,8 @@ public class RemoveFood extends Application {
 							primaryStage.hide();
 
 							try {
-								RemoveCustomer r = new RemoveCustomer();
-								r.start(RemoveCustomer.classStage);
+								RemoveFood r = new RemoveFood();
+								r.start(RemoveFood.classStage);
 
 							} catch (Exception e) {
 								// TODO Auto-generated catch block
