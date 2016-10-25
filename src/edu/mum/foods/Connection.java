@@ -2,14 +2,6 @@ package edu.mum.foods;
 
 import java.sql.*;
 
-/**
- * @author Sovichea Cheth - 985421
- * @version 1.0
- * @since 09/20/2016
- * @description this class use to connect to mysql database using jdbc other
- *              class can call connection method as required
- */
-
 public class Connection {
 
 	// Database connection constant
