@@ -30,6 +30,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class ListItem extends Application implements ActionListener {
+	
+	static String sch = "";
 
 	Button btnOrder = new Button("Order");
 	Scene scene1, scene2, scene3;
@@ -76,7 +78,10 @@ public class ListItem extends Application implements ActionListener {
 
 		Label lblPageTitle = new Label("Food Menu");
 //		Label lblAdmin = new Label("Admin? ");
+		TextField txtSearch = new TextField();
+		Button btnSearch = new Button("Search");
 		Button btnAdmin = new Button("Log In");
+		btnSearch.setMinSize(60, 20);
 		btnAdmin.setMinSize(60, 20);
 //		HBox hbox1= new HBox();
 //		hbox1.getChildren().addAll(lblAdmin, btnAdmin);
@@ -92,7 +97,9 @@ public class ListItem extends Application implements ActionListener {
 		topGrid.setHgap(10);
 
 		topGrid.add(lblPageTitle, 0, 0);
-		topGrid.add(btnAdmin, 1, 0);
+		topGrid.add(txtSearch, 0, 0);
+		topGrid.add(btnSearch, 1, 0);
+		topGrid.add(btnAdmin, 2, 0);
 		topGrid.add(blankSpace, 0, 1);
 		topGrid.add(blankSpace3, 0, 3);
 		topGrid.add(blankSpace4, 0, 4);
@@ -285,6 +292,29 @@ public class ListItem extends Application implements ActionListener {
 			}
 		});
 		
+		
+		btnSearch.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				sch = txtSearch.getText();
+				System.out.println(sch);
+
+				primaryStage.hide();
+				SearchFoodFromCustomer dreg = new SearchFoodFromCustomer();
+
+				try {
+					dreg.start(SearchFoodFromCustomer.classStage);
+
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+		});
+		
+		
+		
 		btnAdmin.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -416,6 +446,12 @@ public class ListItem extends Application implements ActionListener {
 	public int getVariables(int variable, int qty) {
 		return variable;
 	}
+	
+	public static String halka() {
+		// TODO Auto-generated method stub
+		return sch;
+	}
+	
 
 	private int variable;
 	private int id;
