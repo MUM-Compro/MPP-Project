@@ -47,7 +47,7 @@ public class SearchFood extends Application {
 
 		ObservableList<String> items = FXCollections.observableArrayList();
 
-		String query = "SELECT * FROM tblitems where status='1'";
+		String query = "SELECT * FROM tblitems where status='0'";
 
 		try {
 			Statement stmt = Connection.getConnection().createStatement();
@@ -156,7 +156,7 @@ public class SearchFood extends Application {
 				System.out.println(
 						"ListView selection changed from oldValue = " + oldValue + " to newValue = " + newValue);
 
-				String query = "SELECT * FROM tblitems WHERE status='1' AND item_name='" + newValue + "'";
+				String query = "SELECT * FROM tblitems WHERE status='0' AND item_name='" + newValue + "'";
 
 				try {
 					Statement stmt = Connection.getConnection().createStatement();

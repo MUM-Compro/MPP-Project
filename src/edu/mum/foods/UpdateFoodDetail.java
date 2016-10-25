@@ -46,7 +46,7 @@ public class UpdateFoodDetail extends Application {
 
 		ObservableList<String> items = FXCollections.observableArrayList();
 
-		String query = "SELECT * FROM tblitems where status='1'";
+		String query = "SELECT * FROM tblitems where status='0'";
 
 		try {
 			Statement stmt = Connection.getConnection().createStatement();
