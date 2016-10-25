@@ -11,7 +11,7 @@ public class RegisterUser {
 		
 		
 		String query = "INSERT INTO tblPerson (firstname, lastname, email, password, gender, address, contact_number, access_level, status) VALUES('"+firstname+"','"+lastname+"','"+email+"','"+password+"','"+
-				gender+"','"+address+"','"+contact_name+"','"+status+"',1)";
+				gender+"','"+address+"','"+contact_name+"','"+status+"',2)";
 		
 		
 		try {
